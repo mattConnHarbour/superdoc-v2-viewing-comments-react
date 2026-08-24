@@ -1,0 +1,358 @@
+From 6803653927fb418f7a8863c7e4fd1ac994cf220b Mon Sep 17 00:00:00 2001
+From: Matthew Connelly <matthew@harbourshare.com>
+Date: Mon, 24 Aug 2026 00:58:46 -0400
+Subject: [PATCH] fix(comments): support selection comments in viewing mode
+
+---
+ .../public/packages/superdoc/src/SuperDoc.vue |  4 +-
+ .../CommentsLayer/CommentDialog.vue           |  5 +-
+ .../src/dev/components/SuperdocDev.vue        |  4 ++
+ superdoc/tests/behavior/playwright.config.ts  |  1 +
+ .../viewing-mode-comment-button.spec.ts       | 72 +++++++++++++++++++
+ .../create-v2-comments-adapter.js             |  6 +-
+ ...e-v2-editor-host.selection-overlay.test.ts | 11 ++-
+ .../v2-host/src/create-v2-editor-host.test.ts | 24 +++++--
+ .../v2/v2-host/src/create-v2-editor-host.ts   | 38 ++++++++--
+ 9 files changed, 144 insertions(+), 21 deletions(-)
+ create mode 100644 superdoc/tests/behavior/tests/comments/viewing-mode-comment-button.spec.ts
+
+diff --git a/superdoc/public/packages/superdoc/src/SuperDoc.vue b/superdoc/public/packages/superdoc/src/SuperDoc.vue
+index 93daba188b..212430785f 100644
+--- a/superdoc/public/packages/superdoc/src/SuperDoc.vue
++++ b/superdoc/public/packages/superdoc/src/SuperDoc.vue
+@@ -1411,14 +1411,14 @@ const applyCurrentV2DomSelection = () => {
+     return;
+   }
+ 
+-  const result = handles?.editing?.selectionTargets?.applyDomSelection?.(selection);
++  const result = handles?.selection?.applyDomSelection?.(selection);
+   if (!result?.ok || result.mode !== 'range') {
+     clearV2SelectionToolbarState();
+     return;
+   }
+ 
+   v2HasRangeSelection.value = true;
+-  v2SelectionSnapshot.value = handles?.editing?.selection?.getSnapshot?.() ?? null;
++  v2SelectionSnapshot.value = handles?.selection?.getSnapshot?.() ?? null;
+   scheduleV2SelectionToolbarStateSync();
+ };
+ 
+diff --git a/superdoc/public/packages/superdoc/src/components/CommentsLayer/CommentDialog.vue b/superdoc/public/packages/superdoc/src/components/CommentsLayer/CommentDialog.vue
+index 7410ff18f1..d05cd5aaa3 100644
+--- a/superdoc/public/packages/superdoc/src/components/CommentsLayer/CommentDialog.vue
++++ b/superdoc/public/packages/superdoc/src/components/CommentsLayer/CommentDialog.vue
+@@ -823,8 +823,9 @@ const v2TrackedChangesAdapter = computed(() =>
+ const v2WriteCapability = computed(() => {
+   if (!v2CommentsAdapter.value) return null;
+   const documentMode = commentsStore.viewingVisibility.documentMode;
+-  const capability = v2CommentsAdapter.value.getCapabilityState?.() ?? null;
+-  if (documentMode === 'viewing') {
++  const command = isPendingNewComment.value ? 'comments.createFromSelection' : null;
++  const capability = v2CommentsAdapter.value.getCapabilityState?.(command) ?? null;
++  if (documentMode === 'viewing' && !isPendingNewComment.value) {
+     return { ...(capability ?? {}), canWrite: false, reason: 'review-surface-read-only' };
+   }
+   return capability;
+diff --git a/superdoc/public/packages/superdoc/src/dev/components/SuperdocDev.vue b/superdoc/public/packages/superdoc/src/dev/components/SuperdocDev.vue
+index 8598e9d6a9..3c2e4a5c73 100644
+--- a/superdoc/public/packages/superdoc/src/dev/components/SuperdocDev.vue
++++ b/superdoc/public/packages/superdoc/src/dev/components/SuperdocDev.vue
+@@ -605,6 +605,8 @@ const init = async () => {
+     // Diagnostic kill switch for parity runs; product behavior defaults on.
+     ...(urlParams.get('deferDerived') === '0' ? { experimental: { deferDerivedInvalidations: false } } : {}),
+     isInternal,
++    allowSelectionInViewMode: true,
++    showSelection: true,
+     // disableContextMenu: true,
+     // format: 'docx',
+     // html: '<p>Hello world</p>',
+@@ -628,6 +630,8 @@ const init = async () => {
+     // cspNonce: 'testnonce123',
+     modules: {
+       comments: {
++        readOnly: false,
++        allowResolve: true,
+         // comments: sampleComments,
+         // overflow: true,
+         // selector: 'comments-panel',
+diff --git a/superdoc/tests/behavior/playwright.config.ts b/superdoc/tests/behavior/playwright.config.ts
+index 51005bf306..b6c181d208 100644
+--- a/superdoc/tests/behavior/playwright.config.ts
++++ b/superdoc/tests/behavior/playwright.config.ts
+@@ -351,6 +351,7 @@ const V2_BEHAVIOR_SPEC_GLOBS = [
+   // alongside it: asserting only that the sidebar is absent would pass just as
+   // well if no comment rendered at all.
+   '**/comments/canonical-ui-comments-display-mode.spec.ts',
++  '**/comments/viewing-mode-comment-button.spec.ts',
+   '**/comments/sd-4389-commented-text-caret.spec.ts',
+   '**/comments/sd-4390-coincident-comment-selection.spec.ts',
+   // The toolbar option bag, which needs a rendered assertion for the same
+diff --git a/superdoc/tests/behavior/tests/comments/viewing-mode-comment-button.spec.ts b/superdoc/tests/behavior/tests/comments/viewing-mode-comment-button.spec.ts
+new file mode 100644
+index 0000000000..1673220bb5
+--- /dev/null
++++ b/superdoc/tests/behavior/tests/comments/viewing-mode-comment-button.spec.ts
+@@ -0,0 +1,72 @@
++import fs from 'node:fs';
++import path from 'node:path';
++import { fileURLToPath } from 'node:url';
++import { test, expect } from '../../fixtures/superdoc.js';
++
++const __dirname = path.dirname(fileURLToPath(import.meta.url));
++const SAMPLE_DOC = path.resolve(__dirname, '../../fixtures/selection-sample.docx');
++
++test.skip(!fs.existsSync(SAMPLE_DOC), `Missing sample document: ${SAMPLE_DOC}`);
++test.use({
++  config: {
++    comments: 'on',
++    allowSelectionInViewMode: true,
++    showSelection: true,
++  },
++});
++
++test('creates a comment from selected text without making the document editable', async ({ page, superdoc }) => {
++  await superdoc.loadDocument(SAMPLE_DOC);
++  await superdoc.waitForStable();
++  await superdoc.setDocumentMode('viewing');
++  await superdoc.waitForStable();
++  await superdoc.assertDocumentMode('viewing');
++
++  const textBefore = await superdoc.getTextContent();
++  const selectionRect = await page.evaluate(() => {
++    const root = document.querySelector('.v2-super-editor');
++    if (!root) throw new Error('V2 document surface was not found.');
++
++    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
++    while (walker.nextNode()) {
++      const node = walker.currentNode;
++      const text = node.nodeValue ?? '';
++      const index = text.indexOf('need');
++      if (index < 0) continue;
++
++      const range = document.createRange();
++      range.setStart(node, index);
++      range.setEnd(node, index + 'need'.length);
++      const rect = range.getBoundingClientRect();
++      return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
++    }
++    throw new Error('Selection fixture text was not found.');
++  });
++
++  const y = selectionRect.y + selectionRect.height / 2;
++  await page.mouse.move(selectionRect.x + 1, y);
++  await page.mouse.down();
++  await page.mouse.move(selectionRect.x + selectionRect.width - 1, y, { steps: 6 });
++  await page.mouse.up();
++
++  await expect.poll(() => page.evaluate(() => window.getSelection()?.toString().trim())).toBe('need');
++  await expect(page.locator('.superdoc__tools [data-id="is-tool"]')).toBeVisible();
++
++  await page.locator('.superdoc__tools [data-id="is-tool"]').click();
++  const composer = page.locator('.comments-dialog.is-active textarea.superdoc-field');
++  await expect(composer).toBeVisible();
++  await composer.fill('Viewing-mode comment');
++  await page.locator('.comments-dialog.is-active .reply-btn-primary').click();
++
++  await expect
++    .poll(() =>
++      page.evaluate(async () => {
++        const result = await (window as any).superdoc?.activeEditor?.host?.getHandles?.().comments.list();
++        return (result?.items ?? []).some((comment: any) =>
++          String(comment?.text ?? comment?.commentText ?? '').includes('Viewing-mode comment'),
++        );
++      }),
++    )
++    .toBe(true);
++  expect(await superdoc.getTextContent()).toBe(textBefore);
++});
+diff --git a/superdoc/v2/v2-browser-shell/src/superdoc-bridge/create-v2-comments-adapter.js b/superdoc/v2/v2-browser-shell/src/superdoc-bridge/create-v2-comments-adapter.js
+index 5744b28cf0..b3fbc25781 100644
+--- a/superdoc/v2/v2-browser-shell/src/superdoc-bridge/create-v2-comments-adapter.js
++++ b/superdoc/v2/v2-browser-shell/src/superdoc-bridge/create-v2-comments-adapter.js
+@@ -715,8 +715,8 @@ export function createV2CommentsAdapter({
+   }
+ 
+   function hasRangeSelection() {
+-    const handles = getEditingHandles();
+-    const rendered = handles?.selection?.toSelectionTarget?.();
++    const selection = getEditingHandles()?.selection ?? safeGetHandles()?.selection;
++    const rendered = selection?.toSelectionTarget?.();
+     return rendered?.kind === "ok" && rendered.mode === "range";
+   }
+ 
+@@ -741,7 +741,7 @@ export function createV2CommentsAdapter({
+   }
+ 
+   function selectionTargetFromHostSnapshot() {
+-    const selection = getEditingHandles()?.selection;
++    const selection = getEditingHandles()?.selection ?? safeGetHandles()?.selection;
+     const rendered = selection?.toSelectionTarget?.();
+     if (rendered?.kind === "ok" && rendered.mode === "range" && rendered.target) {
+       return rendered.target;
+diff --git a/superdoc/v2/v2-host/src/create-v2-editor-host.selection-overlay.test.ts b/superdoc/v2/v2-host/src/create-v2-editor-host.selection-overlay.test.ts
+index cdee60b058..82cd15f135 100644
+--- a/superdoc/v2/v2-host/src/create-v2-editor-host.selection-overlay.test.ts
++++ b/superdoc/v2/v2-host/src/create-v2-editor-host.selection-overlay.test.ts
+@@ -741,8 +741,15 @@ describe('paintEditableSelectionOverlay', () => {
+     // the host-mounted accessibility surface, not the surrounding V2 chrome, because
+     // chrome descendants such as link-form inputs need their native selection paint.
+     const style = document.head.querySelector<HTMLStyleElement>('[data-v2-local-selection-caret-styles="true"]');
+-    expect(style?.textContent).toContain('[data-editor-host="v2"][data-editor-a11y="true"] ::selection');
+-    expect(style?.textContent).toContain('[data-editor-host="v2"][data-editor-a11y="true"]::selection');
++    expect(style?.textContent).toContain(
++      '[data-editor-host="v2"][data-editor-a11y="true"][data-editor-mode="editing"] ::selection',
++    );
++    expect(style?.textContent).toContain(
++      '[data-editor-host="v2"][data-editor-a11y="true"][data-editor-mode="editing"]::selection',
++    );
++    expect(style?.textContent).not.toContain(
++      '[data-editor-host="v2"][data-editor-a11y="true"][data-editor-mode="review"] ::selection',
++    );
+     expect(style?.textContent).not.toContain('[data-editor-host] ::selection');
+     expect(style?.textContent).not.toContain('[data-editor-host]::selection');
+     expect(style?.textContent).toContain('background: transparent;');
+diff --git a/superdoc/v2/v2-host/src/create-v2-editor-host.test.ts b/superdoc/v2/v2-host/src/create-v2-editor-host.test.ts
+index 31ab2932a8..f67f091479 100644
+--- a/superdoc/v2/v2-host/src/create-v2-editor-host.test.ts
++++ b/superdoc/v2/v2-host/src/create-v2-editor-host.test.ts
+@@ -18483,13 +18483,27 @@ describe('createV2EditorHost — lifecycle and §8 API', () => {
+       });
+     });
+ 
+-    it('does not expose host-owned selectionTargets in a read-only (review) mount', async () => {
++    it('allows comment creation without exposing general editing handles in a review mount', async () => {
+       host = makeHost();
+-      await host.open({ source: fixturePlain(), mode: 'inline' });
++      await host.open({ source: fixturePlain(), author: { name: 'Ada', initials: 'AL' }, mode: 'inline' });
+       await host.mount({ container: container!, mode: 'review' });
+-      // Review/viewing mounts have no live editable selection controller, so the
+-      // editing handles (and thus selectionTargets) are absent — read-only safe.
+-      expect(host.getHandles().editing).toBeNull();
++      const handles = host.getHandles();
++      expect(handles.selection.getSnapshot()).toBeNull();
++      expect(handles.editing).toBeNull();
++      expect(
++        host.getCapabilities().editableSubset.commands.find((entry) => entry.command === 'comments.createFromSelection'),
++      ).toMatchObject({ status: 'supported' });
++
++      const facade = host.getDocumentFacade();
++      if (facade.available !== true) throw new Error('expected inline Document API facade');
++      const matched = await facade.doc.query.match({
++        select: { type: 'text', pattern: 'Hello' },
++        require: 'first',
++      });
++      const target = matched.items[0]?.target;
++      if (!target) throw new Error('expected comment target');
++      const created = await facade.doc.comments.create({ target, text: 'Review comment' });
++      expect(created, JSON.stringify(created)).toMatchObject({ success: true });
+     });
+   });
+ });
+diff --git a/superdoc/v2/v2-host/src/create-v2-editor-host.ts b/superdoc/v2/v2-host/src/create-v2-editor-host.ts
+index 1f7f04d05d..ddea959894 100644
+--- a/superdoc/v2/v2-host/src/create-v2-editor-host.ts
++++ b/superdoc/v2/v2-host/src/create-v2-editor-host.ts
+@@ -842,6 +842,8 @@ export interface V2EditorHostMountHandle {
+ export interface V2EditorHostReviewHandles {
+   review: ReviewStateAdapter;
+   layout: V2ReviewLayoutAdapter;
++  /** Selection synchronization that is safe in every document mode. */
++  selection: V2EditorHostSelectionSyncHandles;
+   comments: {
+     list(query?: CommentsListQuery): Promise<Awaited<ReturnType<V2WorkerDocumentSurface['comments']['list']>>>;
+     get(input: GetCommentInput): Promise<Awaited<ReturnType<V2WorkerDocumentSurface['comments']['get']>>>;
+@@ -909,6 +911,13 @@ export type V2DomSelectionApplyResult =
+   | { ok: true; mode: 'range' }
+   | { ok: false; reason: V2DomSelectionApplyRejectReason; detail?: string };
+ 
++/** Transient selection operations; this surface cannot mutate the document. */
++export interface V2EditorHostSelectionSyncHandles {
++  getSnapshot(): EditableSelectionSnapshot | null;
++  toSelectionTarget(): ReturnType<EditableSelectionController['toSelectionTarget']> | null;
++  applyDomSelection(selection?: Selection | null): V2DomSelectionApplyResult;
++}
++
+ /**
+  * Host-owned helper that applies a public `SelectionTarget` (e.g. from
+  * `doc.query.match(...)`) onto the live editable selection controller and
+@@ -3321,8 +3330,8 @@ function ensureSelectionOverlayStyles(ownerDocument: Document): void {
+   if (!retained) {
+     style.setAttribute(LOCAL_SELECTION_CARET_STYLE_MARKER, 'true');
+     style.textContent = `
+-[data-editor-host="v2"][data-editor-a11y="true"] ::selection,
+-[data-editor-host="v2"][data-editor-a11y="true"]::selection {
++[data-editor-host="v2"][data-editor-a11y="true"][data-editor-mode="editing"] ::selection,
++[data-editor-host="v2"][data-editor-a11y="true"][data-editor-mode="editing"]::selection {
+   background: transparent;
+ }
+ 
+@@ -9986,7 +9995,9 @@ export function createV2EditorHost(options: CreateV2EditorHostOptions): V2Editor
+       mark('structural.listIndent', editingMounted),
+       mark('structural.listOutdent', editingMounted),
+       mark('structural.listApply', editingMounted),
+-      mark('comments.createFromSelection', editingMounted),
++      // Comment anchoring is permitted from the transient selection in
++      // viewing mode without exposing general editing capabilities.
++      mark('comments.createFromSelection', editingMounted || documentMode === 'viewing'),
+       mark('comments.moveFromSelection', editingMounted),
+       // review mutations are writable operations. The default read-only /
+       // review mount exposes review read/focus only and must fail closed for
+@@ -12395,7 +12406,7 @@ export function createV2EditorHost(options: CreateV2EditorHostOptions): V2Editor
+     return {
+       comments: {
+         async create(input) {
+-          const blocked = blockedMutationReceipt('comments.create');
++          const blocked = blockedMutationReceipt('comments.create', { allowInViewing: true });
+           if (blocked) return blocked;
+           const receipt = await doc.comments.create(input);
+           if (receipt.success) {
+@@ -19100,7 +19111,11 @@ export function createV2EditorHost(options: CreateV2EditorHostOptions): V2Editor
+     };
+   }
+ 
+-  function blockedMutationReceipt(operation: string): Extract<Receipt, { success: false }> | null {
++  function blockedMutationReceipt(
++    operation: string,
++    options: { allowInViewing?: boolean } = {},
++  ): Extract<Receipt, { success: false }> | null {
++    if (options.allowInViewing === true && documentMode === 'viewing') return null;
+     if (!documentIsEditable()) return readOnlyMutationReceipt(operation);
+     return null;
+   }
+@@ -22177,7 +22192,11 @@ export function createV2EditorHost(options: CreateV2EditorHostOptions): V2Editor
+       finalizeFacadeReceipt(receipt, { operation, args });
+       return forceAsyncFacade ? Promise.resolve(receipt) : receipt;
+     };
+-    const browserOwnedMutationBlock = (operation: string): Extract<Receipt, { success: false }> | null => {
++    const browserOwnedMutationBlock = (
++      operation: string,
++      options: { allowInViewing?: boolean } = {},
++    ): Extract<Receipt, { success: false }> | null => {
++      if (options.allowInViewing === true && documentMode === 'viewing') return null;
+       if (!isDocumentMutationAllowed()) return rejectReadOnlyFacadeReceipt(operation);
+       return null;
+     };
+@@ -22406,7 +22425,7 @@ export function createV2EditorHost(options: CreateV2EditorHostOptions): V2Editor
+           input: Parameters<RawV2Doc['comments']['create']>[0],
+           guard?: Parameters<RawV2Doc['comments']['create']>[1],
+         ) => {
+-          const blocked = browserOwnedMutationBlock('comments.create');
++          const blocked = browserOwnedMutationBlock('comments.create', { allowInViewing: true });
+           if (blocked) return blocked;
+           const receipt = await normalizedHost.doc.comments.create(input as never, guard as never);
+           finalizeFacadeReceipt(receipt, {
+@@ -22983,6 +23002,11 @@ export function createV2EditorHost(options: CreateV2EditorHostOptions): V2Editor
+     return {
+       review,
+       layout,
++      selection: {
++        getSnapshot: () => selectionController?.getSnapshot() ?? null,
++        toSelectionTarget: () => selectionController?.toSelectionTarget() ?? null,
++        applyDomSelection: applyDomSelectionToController,
++      },
+       comments: {
+         list: (query) => {
+           const read = () => doc.comments.list(query);
+-- 
+2.39.5 (Apple Git-154)
+
