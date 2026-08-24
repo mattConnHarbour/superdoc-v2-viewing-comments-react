@@ -149,6 +149,10 @@
   background: white;
 }
 
+.editor-area .superdoc {
+  justify-content: center;
+}
+
 /* Empty State */
 .empty-state {
   height: 100%;

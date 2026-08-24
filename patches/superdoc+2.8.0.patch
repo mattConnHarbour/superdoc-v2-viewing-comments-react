@@ -1,0 +1,3246 @@
+diff --git a/node_modules/superdoc/dist/style.css b/node_modules/superdoc/dist/style.css
+index 2f0d491..f1938a6 100644
+--- a/node_modules/superdoc/dist/style.css
++++ b/node_modules/superdoc/dist/style.css
+@@ -372,7 +372,6 @@
+  *
+  * These aliases will be removed in the next major version.
+  */
+-
+ :root {
+   /* Old semantic names that map to primitives (no new-token equivalent) */
+   --sd-surface-canvas: var(--sd-color-gray-50);
+@@ -444,7 +443,6 @@
+   --sd-ui-surface-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+   --sd-ui-dialog-backdrop: rgba(0, 0, 0, 0.32);
+ }
+-
+ /* Preset theme: Microsoft Word-like */
+ .sd-theme-word {
+   /* UI base */
+@@ -505,7 +503,6 @@
+   --sd-ui-surface-shadow: 0 2px 6px rgba(0, 0, 0, 0.14), 0 8px 24px rgba(0, 0, 0, 0.1);
+   --sd-ui-dialog-backdrop: rgba(0, 0, 0, 0.4);
+ }
+-
+ /* Preset theme: Blueprint */
+ .sd-theme-blueprint {
+   /* UI base */
+@@ -576,14 +573,12 @@
+ .superdoc-toolbar ::after {
+   box-sizing: border-box;
+ }
+-
+ .superdoc .sd-disabled,
+ .superdoc-toolbar .sd-disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+   pointer-events: none;
+ }
+-
+ .sd-button {
+   border-radius: 8px;
+   background-color: white;
+@@ -595,25 +590,20 @@
+   cursor: pointer;
+   transition: all 250ms ease;
+ }
+-
+ .sd-button:hover {
+   background-color: #dbdbdb;
+ }
+-
+ .sd-button.primary {
+   background-color: #1355ff;
+   border: none;
+   color: white;
+ }
+-
+ .sd-button.primary:hover {
+   background-color: #0d3fcc;
+ }
+-
+ .sd-comment-box {
+   width: 300px;
+ }
+-
+ .superdoc-field {
+   border-radius: 8px;
+   padding: 12px;
+@@ -621,18 +611,15 @@
+   border: 1px solid #dbdbdb;
+   width: 100%;
+ }
+-
+ .superdoc-field:focus,
+ .superdoc-field:active {
+   border: 1px solid #1355ff;
+ }
+-
+ .superdoc-field .ProseMirror {
+   border: 0;
+   outline: 0;
+   margin: 0;
+ }
+-
+ .sd-editor-placeholder::before {
+   content: attr(data-placeholder);
+   color: #aaa;
+@@ -646,7 +633,6 @@
+   display: block;
+   fill: currentColor;
+ }
+-
+ .superdoc-toolbar svg {
+   width: 100%;
+   height: 100%;
+@@ -654,11 +640,9 @@
+   fill: currentColor;
+   pointer-events: none;
+ }
+-
+ .superdoc-toolbar svg path {
+   stroke: currentColor;
+ }
+-
+ /* Web Layout Mode (OOXML ST_View 'web') - content reflows to container width */
+ .superdoc--web-layout,
+ .superdoc--web-layout .superdoc__layers,
+@@ -666,9 +650,7 @@
+ .superdoc--web-layout .superdoc__sub-document {
+   width: 100%;
+ }
+-
+ /* --- Upgrade transition (upgradeToCollaboration) --- */
+-
+ .sd-upgrade-overlay {
+   position: absolute;
+   inset: 0;
+@@ -676,19 +658,15 @@
+   pointer-events: none;
+   overflow: hidden;
+ }
+-
+ .sd-upgrade-overlay [contenteditable] {
+   pointer-events: none;
+   user-select: none;
+ }
+-
+ /* visibility: hidden (not display: none) so layout engine can still measure */
+ .sd-upgrade-hidden {
+   visibility: hidden !important;
+ }
+-
+ /* --- Search highlights (transient, used in both editor and presentation mode) --- */
+-
+ /* AIDEV-NOTE: SD-3045. The DomPainter writes `style.backgroundColor = run.highlight`
+  * inline on the same span the search DecorationBridge tags. Inline styles win over
+  * class selectors, so on every run whose source rPr carries a highlight mark
+@@ -701,19 +679,15 @@
+ .superdoc .ProseMirror-search-match:not([data-sd-search-exact-highlight]) {
+   background: var(--sd-ui-search-match-bg) !important;
+ }
+-
+ .superdoc .ProseMirror-active-search-match:not([data-sd-search-exact-highlight]) {
+   background: var(--sd-ui-search-match-active-bg) !important;
+ }
+-
+ ::highlight(superdoc-search-match) {
+   background: var(--sd-ui-search-match-bg);
+ }
+-
+ ::highlight(superdoc-search-active-match) {
+   background: var(--sd-ui-search-match-active-bg);
+ }
+-
+ /* Proofing underlines are render-only v1/v2 UI state. They must not alter DOCX
+  * bytes or layout identity; the runtime owns adding/removing these classes. */
+ .superdoc .sd-proofing-spelling,
+@@ -724,19 +698,15 @@
+   text-decoration-thickness: var(--sd-proofing-underline-thickness, 1.5px);
+   text-underline-offset: var(--sd-proofing-underline-offset, 2px);
+ }
+-
+ .superdoc .sd-proofing-spelling {
+   text-decoration-color: var(--sd-proofing-spelling-color, #e53e3e);
+ }
+-
+ .superdoc .sd-proofing-grammar {
+   text-decoration-color: var(--sd-proofing-grammar-color, #3182ce);
+ }
+-
+ .superdoc .sd-proofing-style {
+   text-decoration-color: var(--sd-proofing-style-color, #805ad5);
+ }
+-
+ /* CSS Custom Highlight variant: the v2 runtime paints per-word squiggles over
+  * exact text ranges (no DOM mutation). Highlight names match the class names. */
+ ::highlight(sd-proofing-spelling),
+@@ -747,19 +717,15 @@
+   text-decoration-thickness: var(--sd-proofing-underline-thickness, 1.5px);
+   text-underline-offset: var(--sd-proofing-underline-offset, 2px);
+ }
+-
+ ::highlight(sd-proofing-spelling) {
+   text-decoration-color: var(--sd-proofing-spelling-color, #e53e3e);
+ }
+-
+ ::highlight(sd-proofing-grammar) {
+   text-decoration-color: var(--sd-proofing-grammar-color, #3182ce);
+ }
+-
+ ::highlight(sd-proofing-style) {
+   text-decoration-color: var(--sd-proofing-style-color, #805ad5);
+ }
+-
+ /* Contained Mode - fixed-height container embedding with internal scrolling */
+ .superdoc--contained,
+ .superdoc--contained .superdoc__layers,
+@@ -767,7 +733,6 @@
+ .superdoc--contained .superdoc__sub-document {
+   height: 100%;
+ }
+-
+ /* Sub-document scroll fallback for non-document-editor content (PDF, HTML).
+  * The document editor manages its own scroll container, but PDF/HTML viewers
+  * don't, so they need the sub-document to scroll. */
+@@ -1062,7 +1027,7 @@ img[data-v-c95b2073] {
+   font-size: 11px;
+ }
+ 
+-.comments-dialog[data-v-50d8ea52] {
++.comments-dialog[data-v-d84bca4c] {
+   display: flex;
+   flex-direction: column;
+   padding: var(--sd-ui-comments-card-padding, 16px);
+@@ -1081,73 +1046,73 @@ img[data-v-c95b2073] {
+   overflow-wrap: break-word;
+   word-break: break-word;
+ }
+-.comments-dialog[data-v-50d8ea52]:not(.is-active) {
++.comments-dialog[data-v-d84bca4c]:not(.is-active) {
+   cursor: pointer;
+ }
+-.comments-dialog[data-v-50d8ea52]:not(.is-active):not(.is-resolved):hover {
++.comments-dialog[data-v-d84bca4c]:not(.is-active):not(.is-resolved):hover {
+   background-color: var(--sd-ui-comments-card-hover-bg, #f3f6fd);
+ }
+-.comments-dialog[data-v-50d8ea52]:not(.is-resolved):hover .overflow-menu {
++.comments-dialog[data-v-d84bca4c]:not(.is-resolved):hover .overflow-menu {
+   opacity: 1;
+   pointer-events: auto;
+ }
+-.comments-dialog.is-active[data-v-50d8ea52] {
++.comments-dialog.is-active[data-v-d84bca4c] {
+   background-color: var(--sd-ui-comments-card-active-bg, #ffffff);
+   border-color: var(--sd-ui-comments-card-active-border, #e0e0e0);
+   box-shadow: var(--sd-ui-comments-card-shadow, 0px 4px 12px 0px rgba(50, 50, 50, 0.15));
+   z-index: 10;
+ }
+-.comments-dialog.is-resolved[data-v-50d8ea52] {
++.comments-dialog.is-resolved[data-v-d84bca4c] {
+   background-color: var(--sd-ui-comments-card-resolved-bg, #f0f0f0);
+ }
+-.comment-separator[data-v-50d8ea52] {
++.comment-separator[data-v-d84bca4c] {
+   background-color: var(--sd-ui-comments-separator, #e0e0e0);
+   height: 1px;
+   width: 100%;
+   margin: 10px 0;
+ }
+-.comment[data-v-50d8ea52] {
++.comment[data-v-d84bca4c] {
+   font-size: var(--sd-ui-comments-body-size, 14px);
+   line-height: 1.5;
+   color: var(--sd-ui-comments-body-text, #212121);
+   margin: 4px 0 0 0;
+ }
+-.comment[data-v-50d8ea52] p {
++.comment[data-v-d84bca4c] p {
+   margin: 0;
+ }
+-.tracked-change[data-v-50d8ea52] {
++.tracked-change[data-v-d84bca4c] {
+   font-size: var(--sd-ui-comments-body-size, 14px);
+   line-height: 1.5;
+   color: var(--sd-ui-comments-body-text, #212121);
+   margin: 4px 0 0 0;
+ }
+-.change-type[data-v-50d8ea52] {
++.change-type[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-body-text, #212121);
+ }
+-.tracked-change-text[data-v-50d8ea52] {
++.tracked-change-text[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-body-text, #212121);
+ }
+-.tracked-change-text.is-deleted[data-v-50d8ea52] {
++.tracked-change-text.is-deleted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-delete-text, #cb0e47);
+ }
+-.tracked-change-text.is-inserted[data-v-50d8ea52] {
++.tracked-change-text.is-inserted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-insert-text, #1f6feb);
+   font-weight: 500;
+ }
+-.tracked-change[data-track-change-semantic-color-key='move-from'] .tracked-change-text.is-deleted[data-v-50d8ea52] {
++.tracked-change[data-track-change-semantic-color-key='move-from'] .tracked-change-text.is-deleted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-move-from-text, #00853d);
+ }
+-.tracked-change[data-track-change-semantic-color-key='move-to'] .tracked-change-text.is-inserted[data-v-50d8ea52] {
++.tracked-change[data-track-change-semantic-color-key='move-to'] .tracked-change-text.is-inserted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-move-to-text, #00853d);
+ }
+-.tracked-change-detail-lines[data-v-50d8ea52] {
++.tracked-change-detail-lines[data-v-d84bca4c] {
+   margin-top: 4px;
+ }
+-.tracked-change-detail-line[data-v-50d8ea52] {
++.tracked-change-detail-line[data-v-d84bca4c] {
+   font-size: 12px;
+   line-height: 1.4;
+ }
+-.tracked-change-image-preview[data-v-50d8ea52] {
++.tracked-change-image-preview[data-v-d84bca4c] {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+@@ -1158,7 +1123,7 @@ img[data-v-c95b2073] {
+   max-width: 96px;
+   max-height: 96px;
+ }
+-.tracked-change-image-preview__image[data-v-50d8ea52] {
++.tracked-change-image-preview__image[data-v-d84bca4c] {
+   display: block;
+   width: auto;
+   height: auto;
+@@ -1168,7 +1133,7 @@ img[data-v-c95b2073] {
+ }
+ 
+ /* ── Failed tracked-change decision alert (SD-3772 §6) ── */
+-.tracked-change-decision-alert[data-v-50d8ea52] {
++.tracked-change-decision-alert[data-v-d84bca4c] {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+@@ -1182,12 +1147,12 @@ img[data-v-c95b2073] {
+   font-size: var(--sd-ui-comments-body-size, 14px);
+   line-height: 1.4;
+ }
+-.tracked-change-decision-alert__retry[data-v-50d8ea52] {
++.tracked-change-decision-alert__retry[data-v-d84bca4c] {
+   flex-shrink: 0;
+ }
+ 
+ /* ── Resolved badge ── */
+-.resolved-badge[data-v-50d8ea52] {
++.resolved-badge[data-v-d84bca4c] {
+   display: inline-flex;
+   align-items: center;
+   gap: 4px;
+@@ -1196,33 +1161,33 @@ img[data-v-c95b2073] {
+   color: var(--sd-ui-comments-resolved-text, #00853d);
+   margin-bottom: 4px;
+ }
+-.resolved-badge__icon[data-v-50d8ea52] {
++.resolved-badge__icon[data-v-d84bca4c] {
+   display: inline-flex;
+   width: 12px;
+   height: 12px;
+ }
+-.resolved-badge__icon[data-v-50d8ea52] svg {
++.resolved-badge__icon[data-v-d84bca4c] svg {
+   width: 100%;
+   height: 100%;
+   fill: currentColor;
+ }
+ 
+ /* ── Text truncation ── */
+-.comment.is-truncated[data-v-50d8ea52],
+-.tracked-change.is-truncated[data-v-50d8ea52] {
++.comment.is-truncated[data-v-d84bca4c],
++.tracked-change.is-truncated[data-v-d84bca4c] {
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   max-height: 4.5em;
+   overflow: hidden;
+ }
+-.comment.is-scrollable[data-v-50d8ea52],
+-.tracked-change.is-scrollable[data-v-50d8ea52] {
++.comment.is-scrollable[data-v-d84bca4c],
++.tracked-change.is-scrollable[data-v-d84bca4c] {
+   max-height: 220px;
+   overflow-y: auto;
+   padding-right: 4px;
+ }
+-.show-more-toggle[data-v-50d8ea52] {
++.show-more-toggle[data-v-d84bca4c] {
+   font-size: 12px;
+   color: var(--sd-ui-action, #1355ff);
+   cursor: pointer;
+@@ -1230,12 +1195,12 @@ img[data-v-c95b2073] {
+   margin-top: 4px;
+   user-select: none;
+ }
+-.show-more-toggle[data-v-50d8ea52]:hover {
++.show-more-toggle[data-v-d84bca4c]:hover {
+   text-decoration: underline;
+ }
+ 
+ /* ── Thread collapse ── */
+-.collapsed-replies[data-v-50d8ea52] {
++.collapsed-replies[data-v-d84bca4c] {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+@@ -1246,24 +1211,24 @@ img[data-v-c95b2073] {
+   cursor: pointer;
+   user-select: none;
+ }
+-.collapsed-replies[data-v-50d8ea52]:hover {
++.collapsed-replies[data-v-d84bca4c]:hover {
+   text-decoration: underline;
+ }
+-.collapsed-avatars[data-v-50d8ea52] {
++.collapsed-avatars[data-v-d84bca4c] {
+   display: flex;
+ }
+-.collapsed-avatars .mini-avatar[data-v-50d8ea52] {
++.collapsed-avatars .mini-avatar[data-v-d84bca4c] {
+   --sd-comment-avatar-size: 20px;
+   --sd-comment-avatar-font-size: 8px;
+   margin-left: -4px;
+   border: 2px solid var(--sd-ui-comments-card-active-bg, #ffffff);
+ }
+-.collapsed-avatars .mini-avatar[data-v-50d8ea52]:first-child {
++.collapsed-avatars .mini-avatar[data-v-d84bca4c]:first-child {
+   margin-left: 0;
+ }
+ 
+ /* ── New comment input ── */
+-.new-comment-input-wrapper[data-v-50d8ea52] {
++.new-comment-input-wrapper[data-v-d84bca4c] {
+   border: 1.5px solid var(--sd-ui-comments-input-border, #dbdbdb);
+   border-radius: 12px;
+   padding: 8.5px 10.5px;
+@@ -1272,17 +1237,17 @@ img[data-v-c95b2073] {
+   max-height: 150px;
+   overflow: visible;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52]:focus-within {
++.new-comment-input-wrapper[data-v-d84bca4c]:focus-within {
+   border-color: var(--sd-ui-comments-input-focus-border, #4f7cff);
+   box-shadow: 0 0 0 2px rgba(79, 124, 255, 0.16);
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .comment-entry {
++.new-comment-input-wrapper[data-v-d84bca4c] .comment-entry {
+   border-radius: 0;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .input-section {
++.new-comment-input-wrapper[data-v-d84bca4c] .input-section {
+   margin: 0;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .superdoc-field {
++.new-comment-input-wrapper[data-v-d84bca4c] .superdoc-field {
+   font-size: 14px;
+   line-height: 20px;
+   border: none;
+@@ -1293,18 +1258,18 @@ img[data-v-c95b2073] {
+   max-height: 132px;
+   resize: none;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .superdoc-field:focus,
+-.new-comment-input-wrapper[data-v-50d8ea52] .superdoc-field:active {
++.new-comment-input-wrapper[data-v-d84bca4c] .superdoc-field:focus,
++.new-comment-input-wrapper[data-v-d84bca4c] .superdoc-field:active {
+   border: none;
+   box-shadow: none;
+   outline: none;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .sd-editor-placeholder::before {
++.new-comment-input-wrapper[data-v-d84bca4c] .sd-editor-placeholder::before {
+   content: 'Comment or add others with @';
+ }
+ 
+ /* ── Reply pill & expanded input ── */
+-.reply-pill[data-v-50d8ea52] {
++.reply-pill[data-v-d84bca4c] {
+   width: 100%;
+   padding: 8.5px 10.5px;
+   border: 1.5px solid transparent;
+@@ -1318,16 +1283,16 @@ img[data-v-c95b2073] {
+   cursor: text;
+   transition: background 150ms ease;
+ }
+-.reply-pill[data-v-50d8ea52]:hover {
++.reply-pill[data-v-d84bca4c]:hover {
+   background: var(--sd-color-gray-200, #f2f2f2);
+ }
+-.reply-pill[data-v-50d8ea52]:disabled {
++.reply-pill[data-v-d84bca4c]:disabled {
+   cursor: not-allowed;
+ }
+-.reply-expanded[data-v-50d8ea52] {
++.reply-expanded[data-v-d84bca4c] {
+   margin-top: 10px;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] {
++.reply-input-wrapper[data-v-d84bca4c] {
+   border: 1.5px solid var(--sd-ui-comments-input-border, #dbdbdb);
+   border-radius: 12px;
+   padding: 8.5px 10.5px;
+@@ -1335,17 +1300,17 @@ img[data-v-c95b2073] {
+   max-height: 150px;
+   overflow: visible;
+ }
+-.reply-input-wrapper[data-v-50d8ea52]:focus-within {
++.reply-input-wrapper[data-v-d84bca4c]:focus-within {
+   border-color: var(--sd-ui-comments-input-focus-border, #4f7cff);
+   box-shadow: 0 0 0 2px rgba(79, 124, 255, 0.16);
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .comment-entry {
++.reply-input-wrapper[data-v-d84bca4c] .comment-entry {
+   border-radius: 0;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .input-section {
++.reply-input-wrapper[data-v-d84bca4c] .input-section {
+   margin: 0;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .superdoc-field {
++.reply-input-wrapper[data-v-d84bca4c] .superdoc-field {
+   font-size: 14px;
+   line-height: 20px;
+   border: none;
+@@ -1356,23 +1321,23 @@ img[data-v-c95b2073] {
+   max-height: 132px;
+   resize: none;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .superdoc-field:focus,
+-.reply-input-wrapper[data-v-50d8ea52] .superdoc-field:active {
++.reply-input-wrapper[data-v-d84bca4c] .superdoc-field:focus,
++.reply-input-wrapper[data-v-d84bca4c] .superdoc-field:active {
+   border: none;
+   box-shadow: none;
+   outline: none;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .sd-editor-placeholder::before {
++.reply-input-wrapper[data-v-d84bca4c] .sd-editor-placeholder::before {
+   content: 'Reply or add others with @';
+ }
+-.reply-actions[data-v-50d8ea52] {
++.reply-actions[data-v-d84bca4c] {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   gap: 16px;
+   margin-top: 8px;
+ }
+-.reply-btn-cancel[data-v-50d8ea52] {
++.reply-btn-cancel[data-v-d84bca4c] {
+   background: none;
+   border: none;
+   font-size: 13px;
+@@ -1383,10 +1348,10 @@ img[data-v-c95b2073] {
+   font-family: inherit;
+   transition: color 150ms;
+ }
+-.reply-btn-cancel[data-v-50d8ea52]:hover {
++.reply-btn-cancel[data-v-d84bca4c]:hover {
+   color: var(--sd-ui-text, #212121);
+ }
+-.reply-btn-primary[data-v-50d8ea52] {
++.reply-btn-primary[data-v-d84bca4c] {
+   background: var(--sd-ui-action, #1355ff);
+   border: none;
+   font-size: 13px;
+@@ -1398,19 +1363,19 @@ img[data-v-c95b2073] {
+   font-family: inherit;
+   transition: background 150ms;
+ }
+-.reply-btn-primary[data-v-50d8ea52]:hover {
++.reply-btn-primary[data-v-d84bca4c]:hover {
+   background: var(--sd-ui-action-hover, #0f44cc);
+ }
+-.reply-btn-primary.sd-is-disabled[data-v-50d8ea52] {
++.reply-btn-primary.sd-is-disabled[data-v-d84bca4c] {
+   background: var(--sd-color-gray-400, #dbdbdb);
+   color: var(--sd-color-gray-600, #888888);
+   cursor: default;
+   pointer-events: none;
+ }
+-.existing-internal-input[data-v-50d8ea52] {
++.existing-internal-input[data-v-d84bca4c] {
+   margin-bottom: 10px;
+ }
+-.sd-internal-dropdown[data-v-50d8ea52] {
++.sd-internal-dropdown[data-v-d84bca4c] {
+   display: inline-block;
+ }
+ 
+@@ -1818,11 +1783,11 @@ img[data-v-c95b2073] {
+   pointer-events: auto;
+ }
+ 
+-.superdoc[data-v-536a5178] {
++.superdoc[data-v-c254bb84] {
+   display: flex;
+   position: relative;
+ }
+-.sd-visually-hidden[data-v-536a5178] {
++.sd-visually-hidden[data-v-c254bb84] {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+@@ -1833,30 +1798,30 @@ img[data-v-c95b2073] {
+   white-space: nowrap;
+   border: 0;
+ }
+-.right-sidebar[data-v-536a5178] {
++.right-sidebar[data-v-c254bb84] {
+   min-width: 320px;
+   height: 100%;
+ }
+-.floating-comments[data-v-536a5178] {
++.floating-comments[data-v-c254bb84] {
+   min-width: 300px;
+   width: 300px;
+   height: 100%;
+   overflow: visible;
+ }
+-.superdoc__layers[data-v-536a5178] {
++.superdoc__layers[data-v-c254bb84] {
+   height: 100%;
+   position: relative;
+   box-sizing: border-box;
+ }
+-.superdoc__document[data-v-536a5178] {
++.superdoc__document[data-v-c254bb84] {
+   width: 100%;
+   position: relative;
+ }
+-.superdoc__sub-document[data-v-536a5178] {
++.superdoc__sub-document[data-v-c254bb84] {
+   width: 100%;
+   position: relative;
+ }
+-.superdoc__selection-layer[data-v-536a5178] {
++.superdoc__selection-layer[data-v-c254bb84] {
+   position: absolute;
+   min-width: 100%;
+   min-height: 100%;
+@@ -1867,13 +1832,13 @@ img[data-v-c95b2073] {
+ /* SD-3497: PDF whiteboard overlay sits above the rendered PDF canvas but below
+    the PDF comment anchors (z-index 6 in PdfCommentsLayer) so anchors stay
+    clickable, and below the selection layer (z-index 10). */
+-.superdoc__whiteboard-layer[data-v-536a5178] {
++.superdoc__whiteboard-layer[data-v-c254bb84] {
+   z-index: 4;
+ }
+-.superdoc__temp-selection[data-v-536a5178] {
++.superdoc__temp-selection[data-v-c254bb84] {
+   position: absolute;
+ }
+-.superdoc__right-sidebar[data-v-536a5178] {
++.superdoc__right-sidebar[data-v-c254bb84] {
+   width: 320px;
+   min-width: 320px;
+   padding: 0 10px;
+@@ -1881,7 +1846,7 @@ img[data-v-c95b2073] {
+   position: relative;
+   z-index: 2;
+ }
+-.superdoc__compact-comment-popover[data-v-536a5178] {
++.superdoc__compact-comment-popover[data-v-c254bb84] {
+   position: absolute;
+   top: 12px;
+   right: 12px;
+@@ -1890,14 +1855,14 @@ img[data-v-c95b2073] {
+ }
+ 
+ /* Tools styles */
+-.tools[data-v-536a5178] {
++.tools[data-v-c254bb84] {
+   position: absolute;
+   z-index: 3;
+   display: flex;
+   flex-direction: column;
+   gap: var(--sd-ui-tools-gap, 6px);
+ }
+-.tools-item[data-v-536a5178] {
++.tools-item[data-v-c254bb84] {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+@@ -1908,10 +1873,10 @@ img[data-v-c95b2073] {
+   cursor: pointer;
+   position: relative;
+ }
+-.tools-item i[data-v-536a5178] {
++.tools-item i[data-v-c254bb84] {
+   cursor: pointer;
+ }
+-.superdoc__tools-icon[data-v-536a5178] {
++.superdoc__tools-icon[data-v-c254bb84] {
+   width: var(--sd-ui-tools-icon-size, 20px);
+   height: var(--sd-ui-tools-icon-size, 20px);
+   flex-shrink: 0;
+@@ -1926,22 +1891,22 @@ img[data-v-c95b2073] {
+ 
+ /* 834px is iPad screen size in portrait orientation */
+ @media (max-width: 834px) {
+-.superdoc .superdoc__layers[data-v-536a5178] {
++.superdoc .superdoc__layers[data-v-c254bb84] {
+     margin: 0;
+     border: 0 !important;
+     box-shadow: none;
+ }
+-.superdoc__sub-document[data-v-536a5178] {
++.superdoc__sub-document[data-v-c254bb84] {
+     max-width: 100%;
+ }
+-.superdoc__right-sidebar[data-v-536a5178] {
++.superdoc__right-sidebar[data-v-c254bb84] {
+     padding: 10px;
+     position: relative;
+ }
+ }
+ 
+ /* AI Writer styles */
+-.ai-writer-container[data-v-536a5178] {
++.ai-writer-container[data-v-c254bb84] {
+   position: fixed;
+   z-index: 1000;
+   background: white;
+@@ -1957,10 +1922,10 @@ img[data-v-c95b2073] {
+   transform: translateY(-50%);
+   z-index: 50;
+ } */
+-.ai-tool > svg[data-v-536a5178] {
++.ai-tool > svg[data-v-c254bb84] {
+   fill: transparent;
+ }
+-.ai-tool[data-v-536a5178]::before {
++.ai-tool[data-v-c254bb84]::before {
+   content: '';
+   position: absolute;
+   width: 20px;
+@@ -1981,7 +1946,7 @@ img[data-v-c95b2073] {
+   filter: brightness(1.2);
+   transition: filter 0.2s ease;
+ }
+-.ai-tool[data-v-536a5178]:hover::before {
++.ai-tool[data-v-c254bb84]:hover::before {
+   filter: brightness(1.3);
+ }
+ 
+diff --git a/node_modules/superdoc/dist/style.layered.css b/node_modules/superdoc/dist/style.layered.css
+index b060e80..6430797 100644
+--- a/node_modules/superdoc/dist/style.layered.css
++++ b/node_modules/superdoc/dist/style.layered.css
+@@ -372,7 +372,6 @@
+  *
+  * These aliases will be removed in the next major version.
+  */
+-
+ :root {
+   /* Old semantic names that map to primitives (no new-token equivalent) */
+   --sd-surface-canvas: var(--sd-color-gray-50);
+@@ -444,7 +443,6 @@
+   --sd-ui-surface-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+   --sd-ui-dialog-backdrop: rgba(0, 0, 0, 0.32);
+ }
+-
+ /* Preset theme: Microsoft Word-like */
+ .sd-theme-word {
+   /* UI base */
+@@ -505,7 +503,6 @@
+   --sd-ui-surface-shadow: 0 2px 6px rgba(0, 0, 0, 0.14), 0 8px 24px rgba(0, 0, 0, 0.1);
+   --sd-ui-dialog-backdrop: rgba(0, 0, 0, 0.4);
+ }
+-
+ /* Preset theme: Blueprint */
+ .sd-theme-blueprint {
+   /* UI base */
+@@ -576,14 +573,12 @@
+ .superdoc-toolbar ::after {
+   box-sizing: border-box;
+ }
+-
+ .superdoc .sd-disabled,
+ .superdoc-toolbar .sd-disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+   pointer-events: none;
+ }
+-
+ .sd-button {
+   border-radius: 8px;
+   background-color: white;
+@@ -595,25 +590,20 @@
+   cursor: pointer;
+   transition: all 250ms ease;
+ }
+-
+ .sd-button:hover {
+   background-color: #dbdbdb;
+ }
+-
+ .sd-button.primary {
+   background-color: #1355ff;
+   border: none;
+   color: white;
+ }
+-
+ .sd-button.primary:hover {
+   background-color: #0d3fcc;
+ }
+-
+ .sd-comment-box {
+   width: 300px;
+ }
+-
+ .superdoc-field {
+   border-radius: 8px;
+   padding: 12px;
+@@ -621,18 +611,15 @@
+   border: 1px solid #dbdbdb;
+   width: 100%;
+ }
+-
+ .superdoc-field:focus,
+ .superdoc-field:active {
+   border: 1px solid #1355ff;
+ }
+-
+ .superdoc-field .ProseMirror {
+   border: 0;
+   outline: 0;
+   margin: 0;
+ }
+-
+ .sd-editor-placeholder::before {
+   content: attr(data-placeholder);
+   color: #aaa;
+@@ -646,7 +633,6 @@
+   display: block;
+   fill: currentColor;
+ }
+-
+ .superdoc-toolbar svg {
+   width: 100%;
+   height: 100%;
+@@ -654,11 +640,9 @@
+   fill: currentColor;
+   pointer-events: none;
+ }
+-
+ .superdoc-toolbar svg path {
+   stroke: currentColor;
+ }
+-
+ /* Web Layout Mode (OOXML ST_View 'web') - content reflows to container width */
+ .superdoc--web-layout,
+ .superdoc--web-layout .superdoc__layers,
+@@ -666,9 +650,7 @@
+ .superdoc--web-layout .superdoc__sub-document {
+   width: 100%;
+ }
+-
+ /* --- Upgrade transition (upgradeToCollaboration) --- */
+-
+ .sd-upgrade-overlay {
+   position: absolute;
+   inset: 0;
+@@ -676,19 +658,15 @@
+   pointer-events: none;
+   overflow: hidden;
+ }
+-
+ .sd-upgrade-overlay [contenteditable] {
+   pointer-events: none;
+   user-select: none;
+ }
+-
+ /* visibility: hidden (not display: none) so layout engine can still measure */
+ .sd-upgrade-hidden {
+   visibility: hidden !important;
+ }
+-
+ /* --- Search highlights (transient, used in both editor and presentation mode) --- */
+-
+ /* AIDEV-NOTE: SD-3045. The DomPainter writes `style.backgroundColor = run.highlight`
+  * inline on the same span the search DecorationBridge tags. Inline styles win over
+  * class selectors, so on every run whose source rPr carries a highlight mark
+@@ -701,19 +679,15 @@
+ .superdoc .ProseMirror-search-match:not([data-sd-search-exact-highlight]) {
+   background: var(--sd-ui-search-match-bg) !important;
+ }
+-
+ .superdoc .ProseMirror-active-search-match:not([data-sd-search-exact-highlight]) {
+   background: var(--sd-ui-search-match-active-bg) !important;
+ }
+-
+ ::highlight(superdoc-search-match) {
+   background: var(--sd-ui-search-match-bg);
+ }
+-
+ ::highlight(superdoc-search-active-match) {
+   background: var(--sd-ui-search-match-active-bg);
+ }
+-
+ /* Proofing underlines are render-only v1/v2 UI state. They must not alter DOCX
+  * bytes or layout identity; the runtime owns adding/removing these classes. */
+ .superdoc .sd-proofing-spelling,
+@@ -724,19 +698,15 @@
+   text-decoration-thickness: var(--sd-proofing-underline-thickness, 1.5px);
+   text-underline-offset: var(--sd-proofing-underline-offset, 2px);
+ }
+-
+ .superdoc .sd-proofing-spelling {
+   text-decoration-color: var(--sd-proofing-spelling-color, #e53e3e);
+ }
+-
+ .superdoc .sd-proofing-grammar {
+   text-decoration-color: var(--sd-proofing-grammar-color, #3182ce);
+ }
+-
+ .superdoc .sd-proofing-style {
+   text-decoration-color: var(--sd-proofing-style-color, #805ad5);
+ }
+-
+ /* CSS Custom Highlight variant: the v2 runtime paints per-word squiggles over
+  * exact text ranges (no DOM mutation). Highlight names match the class names. */
+ ::highlight(sd-proofing-spelling),
+@@ -747,19 +717,15 @@
+   text-decoration-thickness: var(--sd-proofing-underline-thickness, 1.5px);
+   text-underline-offset: var(--sd-proofing-underline-offset, 2px);
+ }
+-
+ ::highlight(sd-proofing-spelling) {
+   text-decoration-color: var(--sd-proofing-spelling-color, #e53e3e);
+ }
+-
+ ::highlight(sd-proofing-grammar) {
+   text-decoration-color: var(--sd-proofing-grammar-color, #3182ce);
+ }
+-
+ ::highlight(sd-proofing-style) {
+   text-decoration-color: var(--sd-proofing-style-color, #805ad5);
+ }
+-
+ /* Contained Mode - fixed-height container embedding with internal scrolling */
+ .superdoc--contained,
+ .superdoc--contained .superdoc__layers,
+@@ -767,7 +733,6 @@
+ .superdoc--contained .superdoc__sub-document {
+   height: 100%;
+ }
+-
+ /* Sub-document scroll fallback for non-document-editor content (PDF, HTML).
+  * The document editor manages its own scroll container, but PDF/HTML viewers
+  * don't, so they need the sub-document to scroll. */
+@@ -1062,7 +1027,7 @@ img[data-v-c95b2073] {
+   font-size: 11px;
+ }
+ 
+-.comments-dialog[data-v-50d8ea52] {
++.comments-dialog[data-v-d84bca4c] {
+   display: flex;
+   flex-direction: column;
+   padding: var(--sd-ui-comments-card-padding, 16px);
+@@ -1081,73 +1046,73 @@ img[data-v-c95b2073] {
+   overflow-wrap: break-word;
+   word-break: break-word;
+ }
+-.comments-dialog[data-v-50d8ea52]:not(.is-active) {
++.comments-dialog[data-v-d84bca4c]:not(.is-active) {
+   cursor: pointer;
+ }
+-.comments-dialog[data-v-50d8ea52]:not(.is-active):not(.is-resolved):hover {
++.comments-dialog[data-v-d84bca4c]:not(.is-active):not(.is-resolved):hover {
+   background-color: var(--sd-ui-comments-card-hover-bg, #f3f6fd);
+ }
+-.comments-dialog[data-v-50d8ea52]:not(.is-resolved):hover .overflow-menu {
++.comments-dialog[data-v-d84bca4c]:not(.is-resolved):hover .overflow-menu {
+   opacity: 1;
+   pointer-events: auto;
+ }
+-.comments-dialog.is-active[data-v-50d8ea52] {
++.comments-dialog.is-active[data-v-d84bca4c] {
+   background-color: var(--sd-ui-comments-card-active-bg, #ffffff);
+   border-color: var(--sd-ui-comments-card-active-border, #e0e0e0);
+   box-shadow: var(--sd-ui-comments-card-shadow, 0px 4px 12px 0px rgba(50, 50, 50, 0.15));
+   z-index: 10;
+ }
+-.comments-dialog.is-resolved[data-v-50d8ea52] {
++.comments-dialog.is-resolved[data-v-d84bca4c] {
+   background-color: var(--sd-ui-comments-card-resolved-bg, #f0f0f0);
+ }
+-.comment-separator[data-v-50d8ea52] {
++.comment-separator[data-v-d84bca4c] {
+   background-color: var(--sd-ui-comments-separator, #e0e0e0);
+   height: 1px;
+   width: 100%;
+   margin: 10px 0;
+ }
+-.comment[data-v-50d8ea52] {
++.comment[data-v-d84bca4c] {
+   font-size: var(--sd-ui-comments-body-size, 14px);
+   line-height: 1.5;
+   color: var(--sd-ui-comments-body-text, #212121);
+   margin: 4px 0 0 0;
+ }
+-.comment[data-v-50d8ea52] p {
++.comment[data-v-d84bca4c] p {
+   margin: 0;
+ }
+-.tracked-change[data-v-50d8ea52] {
++.tracked-change[data-v-d84bca4c] {
+   font-size: var(--sd-ui-comments-body-size, 14px);
+   line-height: 1.5;
+   color: var(--sd-ui-comments-body-text, #212121);
+   margin: 4px 0 0 0;
+ }
+-.change-type[data-v-50d8ea52] {
++.change-type[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-body-text, #212121);
+ }
+-.tracked-change-text[data-v-50d8ea52] {
++.tracked-change-text[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-body-text, #212121);
+ }
+-.tracked-change-text.is-deleted[data-v-50d8ea52] {
++.tracked-change-text.is-deleted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-delete-text, #cb0e47);
+ }
+-.tracked-change-text.is-inserted[data-v-50d8ea52] {
++.tracked-change-text.is-inserted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-insert-text, #1f6feb);
+   font-weight: 500;
+ }
+-.tracked-change[data-track-change-semantic-color-key='move-from'] .tracked-change-text.is-deleted[data-v-50d8ea52] {
++.tracked-change[data-track-change-semantic-color-key='move-from'] .tracked-change-text.is-deleted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-move-from-text, #00853d);
+ }
+-.tracked-change[data-track-change-semantic-color-key='move-to'] .tracked-change-text.is-inserted[data-v-50d8ea52] {
++.tracked-change[data-track-change-semantic-color-key='move-to'] .tracked-change-text.is-inserted[data-v-d84bca4c] {
+   color: var(--sd-ui-comments-move-to-text, #00853d);
+ }
+-.tracked-change-detail-lines[data-v-50d8ea52] {
++.tracked-change-detail-lines[data-v-d84bca4c] {
+   margin-top: 4px;
+ }
+-.tracked-change-detail-line[data-v-50d8ea52] {
++.tracked-change-detail-line[data-v-d84bca4c] {
+   font-size: 12px;
+   line-height: 1.4;
+ }
+-.tracked-change-image-preview[data-v-50d8ea52] {
++.tracked-change-image-preview[data-v-d84bca4c] {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+@@ -1158,7 +1123,7 @@ img[data-v-c95b2073] {
+   max-width: 96px;
+   max-height: 96px;
+ }
+-.tracked-change-image-preview__image[data-v-50d8ea52] {
++.tracked-change-image-preview__image[data-v-d84bca4c] {
+   display: block;
+   width: auto;
+   height: auto;
+@@ -1168,7 +1133,7 @@ img[data-v-c95b2073] {
+ }
+ 
+ /* ── Failed tracked-change decision alert (SD-3772 §6) ── */
+-.tracked-change-decision-alert[data-v-50d8ea52] {
++.tracked-change-decision-alert[data-v-d84bca4c] {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+@@ -1182,12 +1147,12 @@ img[data-v-c95b2073] {
+   font-size: var(--sd-ui-comments-body-size, 14px);
+   line-height: 1.4;
+ }
+-.tracked-change-decision-alert__retry[data-v-50d8ea52] {
++.tracked-change-decision-alert__retry[data-v-d84bca4c] {
+   flex-shrink: 0;
+ }
+ 
+ /* ── Resolved badge ── */
+-.resolved-badge[data-v-50d8ea52] {
++.resolved-badge[data-v-d84bca4c] {
+   display: inline-flex;
+   align-items: center;
+   gap: 4px;
+@@ -1196,33 +1161,33 @@ img[data-v-c95b2073] {
+   color: var(--sd-ui-comments-resolved-text, #00853d);
+   margin-bottom: 4px;
+ }
+-.resolved-badge__icon[data-v-50d8ea52] {
++.resolved-badge__icon[data-v-d84bca4c] {
+   display: inline-flex;
+   width: 12px;
+   height: 12px;
+ }
+-.resolved-badge__icon[data-v-50d8ea52] svg {
++.resolved-badge__icon[data-v-d84bca4c] svg {
+   width: 100%;
+   height: 100%;
+   fill: currentColor;
+ }
+ 
+ /* ── Text truncation ── */
+-.comment.is-truncated[data-v-50d8ea52],
+-.tracked-change.is-truncated[data-v-50d8ea52] {
++.comment.is-truncated[data-v-d84bca4c],
++.tracked-change.is-truncated[data-v-d84bca4c] {
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   max-height: 4.5em;
+   overflow: hidden;
+ }
+-.comment.is-scrollable[data-v-50d8ea52],
+-.tracked-change.is-scrollable[data-v-50d8ea52] {
++.comment.is-scrollable[data-v-d84bca4c],
++.tracked-change.is-scrollable[data-v-d84bca4c] {
+   max-height: 220px;
+   overflow-y: auto;
+   padding-right: 4px;
+ }
+-.show-more-toggle[data-v-50d8ea52] {
++.show-more-toggle[data-v-d84bca4c] {
+   font-size: 12px;
+   color: var(--sd-ui-action, #1355ff);
+   cursor: pointer;
+@@ -1230,12 +1195,12 @@ img[data-v-c95b2073] {
+   margin-top: 4px;
+   user-select: none;
+ }
+-.show-more-toggle[data-v-50d8ea52]:hover {
++.show-more-toggle[data-v-d84bca4c]:hover {
+   text-decoration: underline;
+ }
+ 
+ /* ── Thread collapse ── */
+-.collapsed-replies[data-v-50d8ea52] {
++.collapsed-replies[data-v-d84bca4c] {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+@@ -1246,24 +1211,24 @@ img[data-v-c95b2073] {
+   cursor: pointer;
+   user-select: none;
+ }
+-.collapsed-replies[data-v-50d8ea52]:hover {
++.collapsed-replies[data-v-d84bca4c]:hover {
+   text-decoration: underline;
+ }
+-.collapsed-avatars[data-v-50d8ea52] {
++.collapsed-avatars[data-v-d84bca4c] {
+   display: flex;
+ }
+-.collapsed-avatars .mini-avatar[data-v-50d8ea52] {
++.collapsed-avatars .mini-avatar[data-v-d84bca4c] {
+   --sd-comment-avatar-size: 20px;
+   --sd-comment-avatar-font-size: 8px;
+   margin-left: -4px;
+   border: 2px solid var(--sd-ui-comments-card-active-bg, #ffffff);
+ }
+-.collapsed-avatars .mini-avatar[data-v-50d8ea52]:first-child {
++.collapsed-avatars .mini-avatar[data-v-d84bca4c]:first-child {
+   margin-left: 0;
+ }
+ 
+ /* ── New comment input ── */
+-.new-comment-input-wrapper[data-v-50d8ea52] {
++.new-comment-input-wrapper[data-v-d84bca4c] {
+   border: 1.5px solid var(--sd-ui-comments-input-border, #dbdbdb);
+   border-radius: 12px;
+   padding: 8.5px 10.5px;
+@@ -1272,17 +1237,17 @@ img[data-v-c95b2073] {
+   max-height: 150px;
+   overflow: visible;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52]:focus-within {
++.new-comment-input-wrapper[data-v-d84bca4c]:focus-within {
+   border-color: var(--sd-ui-comments-input-focus-border, #4f7cff);
+   box-shadow: 0 0 0 2px rgba(79, 124, 255, 0.16);
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .comment-entry {
++.new-comment-input-wrapper[data-v-d84bca4c] .comment-entry {
+   border-radius: 0;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .input-section {
++.new-comment-input-wrapper[data-v-d84bca4c] .input-section {
+   margin: 0;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .superdoc-field {
++.new-comment-input-wrapper[data-v-d84bca4c] .superdoc-field {
+   font-size: 14px;
+   line-height: 20px;
+   border: none;
+@@ -1293,18 +1258,18 @@ img[data-v-c95b2073] {
+   max-height: 132px;
+   resize: none;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .superdoc-field:focus,
+-.new-comment-input-wrapper[data-v-50d8ea52] .superdoc-field:active {
++.new-comment-input-wrapper[data-v-d84bca4c] .superdoc-field:focus,
++.new-comment-input-wrapper[data-v-d84bca4c] .superdoc-field:active {
+   border: none;
+   box-shadow: none;
+   outline: none;
+ }
+-.new-comment-input-wrapper[data-v-50d8ea52] .sd-editor-placeholder::before {
++.new-comment-input-wrapper[data-v-d84bca4c] .sd-editor-placeholder::before {
+   content: 'Comment or add others with @';
+ }
+ 
+ /* ── Reply pill & expanded input ── */
+-.reply-pill[data-v-50d8ea52] {
++.reply-pill[data-v-d84bca4c] {
+   width: 100%;
+   padding: 8.5px 10.5px;
+   border: 1.5px solid transparent;
+@@ -1318,16 +1283,16 @@ img[data-v-c95b2073] {
+   cursor: text;
+   transition: background 150ms ease;
+ }
+-.reply-pill[data-v-50d8ea52]:hover {
++.reply-pill[data-v-d84bca4c]:hover {
+   background: var(--sd-color-gray-200, #f2f2f2);
+ }
+-.reply-pill[data-v-50d8ea52]:disabled {
++.reply-pill[data-v-d84bca4c]:disabled {
+   cursor: not-allowed;
+ }
+-.reply-expanded[data-v-50d8ea52] {
++.reply-expanded[data-v-d84bca4c] {
+   margin-top: 10px;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] {
++.reply-input-wrapper[data-v-d84bca4c] {
+   border: 1.5px solid var(--sd-ui-comments-input-border, #dbdbdb);
+   border-radius: 12px;
+   padding: 8.5px 10.5px;
+@@ -1335,17 +1300,17 @@ img[data-v-c95b2073] {
+   max-height: 150px;
+   overflow: visible;
+ }
+-.reply-input-wrapper[data-v-50d8ea52]:focus-within {
++.reply-input-wrapper[data-v-d84bca4c]:focus-within {
+   border-color: var(--sd-ui-comments-input-focus-border, #4f7cff);
+   box-shadow: 0 0 0 2px rgba(79, 124, 255, 0.16);
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .comment-entry {
++.reply-input-wrapper[data-v-d84bca4c] .comment-entry {
+   border-radius: 0;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .input-section {
++.reply-input-wrapper[data-v-d84bca4c] .input-section {
+   margin: 0;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .superdoc-field {
++.reply-input-wrapper[data-v-d84bca4c] .superdoc-field {
+   font-size: 14px;
+   line-height: 20px;
+   border: none;
+@@ -1356,23 +1321,23 @@ img[data-v-c95b2073] {
+   max-height: 132px;
+   resize: none;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .superdoc-field:focus,
+-.reply-input-wrapper[data-v-50d8ea52] .superdoc-field:active {
++.reply-input-wrapper[data-v-d84bca4c] .superdoc-field:focus,
++.reply-input-wrapper[data-v-d84bca4c] .superdoc-field:active {
+   border: none;
+   box-shadow: none;
+   outline: none;
+ }
+-.reply-input-wrapper[data-v-50d8ea52] .sd-editor-placeholder::before {
++.reply-input-wrapper[data-v-d84bca4c] .sd-editor-placeholder::before {
+   content: 'Reply or add others with @';
+ }
+-.reply-actions[data-v-50d8ea52] {
++.reply-actions[data-v-d84bca4c] {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   gap: 16px;
+   margin-top: 8px;
+ }
+-.reply-btn-cancel[data-v-50d8ea52] {
++.reply-btn-cancel[data-v-d84bca4c] {
+   background: none;
+   border: none;
+   font-size: 13px;
+@@ -1383,10 +1348,10 @@ img[data-v-c95b2073] {
+   font-family: inherit;
+   transition: color 150ms;
+ }
+-.reply-btn-cancel[data-v-50d8ea52]:hover {
++.reply-btn-cancel[data-v-d84bca4c]:hover {
+   color: var(--sd-ui-text, #212121);
+ }
+-.reply-btn-primary[data-v-50d8ea52] {
++.reply-btn-primary[data-v-d84bca4c] {
+   background: var(--sd-ui-action, #1355ff);
+   border: none;
+   font-size: 13px;
+@@ -1398,19 +1363,19 @@ img[data-v-c95b2073] {
+   font-family: inherit;
+   transition: background 150ms;
+ }
+-.reply-btn-primary[data-v-50d8ea52]:hover {
++.reply-btn-primary[data-v-d84bca4c]:hover {
+   background: var(--sd-ui-action-hover, #0f44cc);
+ }
+-.reply-btn-primary.sd-is-disabled[data-v-50d8ea52] {
++.reply-btn-primary.sd-is-disabled[data-v-d84bca4c] {
+   background: var(--sd-color-gray-400, #dbdbdb);
+   color: var(--sd-color-gray-600, #888888);
+   cursor: default;
+   pointer-events: none;
+ }
+-.existing-internal-input[data-v-50d8ea52] {
++.existing-internal-input[data-v-d84bca4c] {
+   margin-bottom: 10px;
+ }
+-.sd-internal-dropdown[data-v-50d8ea52] {
++.sd-internal-dropdown[data-v-d84bca4c] {
+   display: inline-block;
+ }
+ 
+@@ -1818,11 +1783,11 @@ img[data-v-c95b2073] {
+   pointer-events: auto;
+ }
+ 
+-.superdoc[data-v-536a5178] {
++.superdoc[data-v-c254bb84] {
+   display: flex;
+   position: relative;
+ }
+-.sd-visually-hidden[data-v-536a5178] {
++.sd-visually-hidden[data-v-c254bb84] {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+@@ -1833,30 +1798,30 @@ img[data-v-c95b2073] {
+   white-space: nowrap;
+   border: 0;
+ }
+-.right-sidebar[data-v-536a5178] {
++.right-sidebar[data-v-c254bb84] {
+   min-width: 320px;
+   height: 100%;
+ }
+-.floating-comments[data-v-536a5178] {
++.floating-comments[data-v-c254bb84] {
+   min-width: 300px;
+   width: 300px;
+   height: 100%;
+   overflow: visible;
+ }
+-.superdoc__layers[data-v-536a5178] {
++.superdoc__layers[data-v-c254bb84] {
+   height: 100%;
+   position: relative;
+   box-sizing: border-box;
+ }
+-.superdoc__document[data-v-536a5178] {
++.superdoc__document[data-v-c254bb84] {
+   width: 100%;
+   position: relative;
+ }
+-.superdoc__sub-document[data-v-536a5178] {
++.superdoc__sub-document[data-v-c254bb84] {
+   width: 100%;
+   position: relative;
+ }
+-.superdoc__selection-layer[data-v-536a5178] {
++.superdoc__selection-layer[data-v-c254bb84] {
+   position: absolute;
+   min-width: 100%;
+   min-height: 100%;
+@@ -1867,13 +1832,13 @@ img[data-v-c95b2073] {
+ /* SD-3497: PDF whiteboard overlay sits above the rendered PDF canvas but below
+    the PDF comment anchors (z-index 6 in PdfCommentsLayer) so anchors stay
+    clickable, and below the selection layer (z-index 10). */
+-.superdoc__whiteboard-layer[data-v-536a5178] {
++.superdoc__whiteboard-layer[data-v-c254bb84] {
+   z-index: 4;
+ }
+-.superdoc__temp-selection[data-v-536a5178] {
++.superdoc__temp-selection[data-v-c254bb84] {
+   position: absolute;
+ }
+-.superdoc__right-sidebar[data-v-536a5178] {
++.superdoc__right-sidebar[data-v-c254bb84] {
+   width: 320px;
+   min-width: 320px;
+   padding: 0 10px;
+@@ -1881,7 +1846,7 @@ img[data-v-c95b2073] {
+   position: relative;
+   z-index: 2;
+ }
+-.superdoc__compact-comment-popover[data-v-536a5178] {
++.superdoc__compact-comment-popover[data-v-c254bb84] {
+   position: absolute;
+   top: 12px;
+   right: 12px;
+@@ -1890,14 +1855,14 @@ img[data-v-c95b2073] {
+ }
+ 
+ /* Tools styles */
+-.tools[data-v-536a5178] {
++.tools[data-v-c254bb84] {
+   position: absolute;
+   z-index: 3;
+   display: flex;
+   flex-direction: column;
+   gap: var(--sd-ui-tools-gap, 6px);
+ }
+-.tools-item[data-v-536a5178] {
++.tools-item[data-v-c254bb84] {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+@@ -1908,10 +1873,10 @@ img[data-v-c95b2073] {
+   cursor: pointer;
+   position: relative;
+ }
+-.tools-item i[data-v-536a5178] {
++.tools-item i[data-v-c254bb84] {
+   cursor: pointer;
+ }
+-.superdoc__tools-icon[data-v-536a5178] {
++.superdoc__tools-icon[data-v-c254bb84] {
+   width: var(--sd-ui-tools-icon-size, 20px);
+   height: var(--sd-ui-tools-icon-size, 20px);
+   flex-shrink: 0;
+@@ -1926,22 +1891,22 @@ img[data-v-c95b2073] {
+ 
+ /* 834px is iPad screen size in portrait orientation */
+ @media (max-width: 834px) {
+-.superdoc .superdoc__layers[data-v-536a5178] {
++.superdoc .superdoc__layers[data-v-c254bb84] {
+     margin: 0;
+     border: 0 !important;
+     box-shadow: none;
+ }
+-.superdoc__sub-document[data-v-536a5178] {
++.superdoc__sub-document[data-v-c254bb84] {
+     max-width: 100%;
+ }
+-.superdoc__right-sidebar[data-v-536a5178] {
++.superdoc__right-sidebar[data-v-c254bb84] {
+     padding: 10px;
+     position: relative;
+ }
+ }
+ 
+ /* AI Writer styles */
+-.ai-writer-container[data-v-536a5178] {
++.ai-writer-container[data-v-c254bb84] {
+   position: fixed;
+   z-index: 1000;
+   background: white;
+@@ -1957,10 +1922,10 @@ img[data-v-c95b2073] {
+   transform: translateY(-50%);
+   z-index: 50;
+ } */
+-.ai-tool > svg[data-v-536a5178] {
++.ai-tool > svg[data-v-c254bb84] {
+   fill: transparent;
+ }
+-.ai-tool[data-v-536a5178]::before {
++.ai-tool[data-v-c254bb84]::before {
+   content: '';
+   position: absolute;
+   width: 20px;
+@@ -1981,7 +1946,7 @@ img[data-v-c95b2073] {
+   filter: brightness(1.2);
+   transition: filter 0.2s ease;
+ }
+-.ai-tool[data-v-536a5178]:hover::before {
++.ai-tool[data-v-c254bb84]:hover::before {
+   filter: brightness(1.3);
+ }
+ 
+diff --git a/node_modules/superdoc/dist/superdoc.cjs b/node_modules/superdoc/dist/superdoc.cjs
+index 2c3edbe..a3cebdf 100644
+--- a/node_modules/superdoc/dist/superdoc.cjs
++++ b/node_modules/superdoc/dist/superdoc.cjs
+@@ -312,7 +312,7 @@ var shuffleArray = (array) => {
+ 	return array;
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/@vue+devtools-shared@7.7.10/node_modules/@vue/devtools-shared/dist/index.js
++//#region ../../../node_modules/.pnpm/@vue+devtools-shared@7.7.10/node_modules/@vue/devtools-shared/dist/index.js
+ require_jszip.init_dist$2();
+ require_jszip.init_dist$1();
+ var __create$1 = Object.create;
+@@ -510,7 +510,7 @@ function basename(filename, ext) {
+ }
+ var deepClone = (0, import_rfdc.default)({ circles: true });
+ //#endregion
+-//#region ../../node_modules/.pnpm/perfect-debounce@1.0.0/node_modules/perfect-debounce/dist/index.mjs
++//#region ../../../node_modules/.pnpm/perfect-debounce@1.0.0/node_modules/perfect-debounce/dist/index.mjs
+ var DEBOUNCE_DEFAULTS = { trailing: true };
+ function debounce(fn, wait = 25, options = {}) {
+ 	options = {
+@@ -560,7 +560,7 @@ async function _applyPromised(fn, _this, args) {
+ 	return await fn.apply(_this, args);
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/hookable@5.5.3/node_modules/hookable/dist/index.mjs
++//#region ../../../node_modules/.pnpm/hookable@5.5.3/node_modules/hookable/dist/index.mjs
+ function flatHooks(configHooks, hooks = {}, parentName) {
+ 	for (const key in configHooks) {
+ 		const subHook = configHooks[key];
+@@ -716,7 +716,7 @@ function createHooks() {
+ 	return new Hookable();
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/@vue+devtools-kit@7.7.10/node_modules/@vue/devtools-kit/dist/index.js
++//#region ../../../node_modules/.pnpm/@vue+devtools-kit@7.7.10/node_modules/@vue/devtools-kit/dist/index.js
+ var __create = Object.create;
+ var __defProp = Object.defineProperty;
+ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+@@ -3752,7 +3752,9 @@ var getDeep = (object, path) => {
+ 				case "key":
+ 					object = keyOfRow;
+ 					break;
+-				case "value": object = object.get(keyOfRow);
++				case "value":
++					object = object.get(keyOfRow);
++					break;
+ 			}
+ 		} else object = object[key];
+ 	}
+@@ -3780,7 +3782,9 @@ var setDeep = (object, path, mapper) => {
+ 				case "key":
+ 					parent = keyOfRow;
+ 					break;
+-				case "value": parent = parent.get(keyOfRow);
++				case "value":
++					parent = parent.get(keyOfRow);
++					break;
+ 			}
+ 		}
+ 	}
+@@ -3805,7 +3809,9 @@ var setDeep = (object, path, mapper) => {
+ 				if (newKey !== keyToRow) parent.delete(keyToRow);
+ 				break;
+ 			}
+-			case "value": parent.set(keyToRow, mapper(parent.get(keyToRow)));
++			case "value":
++				parent.set(keyToRow, mapper(parent.get(keyToRow)));
++				break;
+ 		}
+ 	}
+ 	return object;
+@@ -4047,7 +4053,7 @@ init_esm_shims();
+ init_esm_shims();
+ init_esm_shims();
+ //#endregion
+-//#region ../../node_modules/.pnpm/pinia@3.0.4_typescript@5.9.3_vue@3.5.32_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs
++//#region ../../../node_modules/.pnpm/pinia@3.0.4_typescript@5.9.3_vue@3.5.38_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs
+ var import_jszip_min = /* @__PURE__ */ require_rolldown_runtime.__toESM(require_jszip.require_jszip_min(), 1);
+ /*!
+ * pinia v3.0.4
+@@ -5596,7 +5602,9 @@ var syncCommentsToClients = (superdoc, event) => {
+ 		case "resolved":
+ 			updateYComment(yArray, superdoc.ydoc, event, user);
+ 			break;
+-		case "deleted": deleteYComment(yArray, superdoc.ydoc, event, user);
++		case "deleted":
++			deleteYComment(yArray, superdoc.ydoc, event, user);
++			break;
+ 	}
+ };
+ //#endregion
+@@ -12855,7 +12863,7 @@ var _sfc_main$33 = {
+ 			if (!shouldCollapseThread.value) return comments.value;
+ 			return [comments.value[0], childComments.value[childComments.value.length - 1]].filter(Boolean);
+ 		});
+-		const overflowMeasurementKey = (0, vue.computed)(() => {
++		(0, vue.watch)((0, vue.computed)(() => {
+ 			const comment = visibleComments.value[0];
+ 			if (!comment) return "";
+ 			return JSON.stringify({
+@@ -12868,8 +12876,7 @@ var _sfc_main$33 = {
+ 				trackedChangeDisplayType: comment.trackedChangeDisplayType,
+ 				trackedChangeDetailLines: comment.trackedChangeDetailLines
+ 			});
+-		});
+-		(0, vue.watch)(overflowMeasurementKey, () => {
++		}), () => {
+ 			(0, vue.nextTick)(checkOverflow);
+ 		});
+ 		const collapsedReplyCount = (0, vue.computed)(() => {
+@@ -13070,8 +13077,9 @@ var _sfc_main$33 = {
+ 		const v2WriteCapability = (0, vue.computed)(() => {
+ 			if (!v2CommentsAdapter.value) return null;
+ 			const documentMode = commentsStore.viewingVisibility.documentMode;
+-			const capability = v2CommentsAdapter.value.getCapabilityState?.() ?? null;
+-			if (documentMode === "viewing") return {
++			const command = isPendingNewComment.value ? "comments.createFromSelection" : null;
++			const capability = v2CommentsAdapter.value.getCapabilityState?.(command) ?? null;
++			if (documentMode === "viewing" && !isPendingNewComment.value) return {
+ 				...capability ?? {},
+ 				canWrite: false,
+ 				reason: "review-surface-read-only"
+@@ -13309,10 +13317,12 @@ var _sfc_main$33 = {
+ 						focusEditInput(comment.commentId);
+ 					});
+ 					break;
+-				case "delete": deleteComment({
+-					superdoc: proxy.$superdoc,
+-					commentId: comment.commentId
+-				});
++				case "delete":
++					deleteComment({
++						superdoc: proxy.$superdoc,
++						commentId: comment.commentId
++					});
++					break;
+ 			}
+ 		};
+ 		const handleCommentUpdate = async (comment) => {
+@@ -13624,7 +13634,7 @@ var _sfc_main$33 = {
+ 		};
+ 	}
+ };
+-var CommentDialog_default = /*#__PURE__*/ require__plugin_vue_export_helper._plugin_vue_export_helper_default(_sfc_main$33, [["__scopeId", "data-v-50d8ea52"]]);
++var CommentDialog_default = /*#__PURE__*/ require__plugin_vue_export_helper._plugin_vue_export_helper_default(_sfc_main$33, [["__scopeId", "data-v-d84bca4c"]]);
+ //#endregion
+ //#region src/components/CommentsLayer/commentsList/ReviewDirectoryListItem.vue
+ var _hoisted_1$25 = [
+@@ -21554,13 +21564,13 @@ var SuperDoc_default = /*#__PURE__*/ require__plugin_vue_export_helper._plugin_v
+ 				clearV2SelectionToolbarState();
+ 				return;
+ 			}
+-			const result = handles?.editing?.selectionTargets?.applyDomSelection?.(selection);
++			const result = handles?.selection?.applyDomSelection?.(selection);
+ 			if (!result?.ok || result.mode !== "range") {
+ 				clearV2SelectionToolbarState();
+ 				return;
+ 			}
+ 			v2HasRangeSelection.value = true;
+-			v2SelectionSnapshot.value = handles?.editing?.selection?.getSnapshot?.() ?? null;
++			v2SelectionSnapshot.value = handles?.selection?.getSnapshot?.() ?? null;
+ 			scheduleV2SelectionToolbarStateSync();
+ 		};
+ 		const scheduleV2DomSelectionSync = () => {
+@@ -23135,7 +23145,7 @@ var SuperDoc_default = /*#__PURE__*/ require__plugin_vue_export_helper._plugin_v
+ 			], 38);
+ 		};
+ 	}
+-}, [["__scopeId", "data-v-536a5178"]]);
++}, [["__scopeId", "data-v-c254bb84"]]);
+ //#endregion
+ //#region src/core/create-app.js
+ var PINIA_DEVTOOLS_SETUP_EVENT = "devtools-plugin:setup";
+@@ -24866,7 +24876,7 @@ var Whiteboard = class extends EventEmitter$2 {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Global.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Global.js
+ require_jszip.init_dist$1();
+ var PI_OVER_180 = Math.PI / 180;
+ function detectBrowser() {
+@@ -24875,7 +24885,7 @@ function detectBrowser() {
+ var glob = typeof require_jszip.global !== "undefined" ? require_jszip.global : typeof window !== "undefined" ? window : typeof WorkerGlobalScope !== "undefined" ? self : {};
+ var Konva$2 = {
+ 	_global: glob,
+-	version: "10.2.5",
++	version: "10.3.0",
+ 	isBrowser: detectBrowser(),
+ 	isUnminified: /param/.test(function(param) {}.toString()),
+ 	dblClickWindow: 400,
+@@ -24925,7 +24935,7 @@ var _registerNode = (NodeClass) => {
+ };
+ Konva$2._injectGlobal(Konva$2);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Util.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Util.js
+ var NODE_ERROR = `Konva.js unsupported environment.
+ 
+ Looks like you are trying to use Konva.js in Node.js environment. because "document" object is undefined.
+@@ -26345,7 +26355,7 @@ var Util = {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Context.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Context.js
+ function simplifyArray(arr) {
+ 	const retArr = [], len = arr.length, util = Util;
+ 	for (let n = 0; n < len; n++) {
+@@ -26812,7 +26822,7 @@ var HitContext = class extends Context {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Canvas.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Canvas.js
+ var _pixelRatio;
+ function getDevicePixelRatio() {
+ 	if (_pixelRatio) return _pixelRatio;
+@@ -26910,7 +26920,7 @@ var HitCanvas = class extends Canvas {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/DragAndDrop.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/DragAndDrop.js
+ var DD = {
+ 	get isDragging() {
+ 		let flag = false;
+@@ -26998,7 +27008,7 @@ if (Konva$2.isBrowser) {
+ 	window.addEventListener("touchcancel", DD._endDragAfter, false);
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Validators.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Validators.js
+ function _formatValue(val) {
+ 	if (Util._isString(val)) return "\"" + val + "\"";
+ 	if (Object.prototype.toString.call(val) === "[object Number]") return val;
+@@ -27069,7 +27079,7 @@ function getComponentValidator(components) {
+ 	};
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Factory.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Factory.js
+ var GET = "get";
+ var SET$1 = "set";
+ var Factory = {
+@@ -27169,7 +27179,7 @@ var Factory = {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Node.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Node.js
+ function parseCSSFilters(cssFilter) {
+ 	const filterRegex = /(\w+)\(([^)]+)\)/g;
+ 	let match;
+@@ -27213,7 +27223,9 @@ function parseCSSFilters(cssFilter) {
+ 				const KonvaFilters = Konva$2.Filters;
+ 				if (KonvaFilters && KonvaFilters.Invert) KonvaFilters.Invert.call(this, imageData);
+ 			};
+-			default: Util.warn(`CSS filter "${filterName}" is not supported in fallback mode. Consider using function filters for better compatibility.`);
++			default:
++				Util.warn(`CSS filter "${filterName}" is not supported in fallback mode. Consider using function filters for better compatibility.`);
++				break;
+ 		}
+ 	}
+ 	return () => {};
+@@ -28449,7 +28461,7 @@ Factory.backCompat(Node$1, {
+ 	getRotationDeg: "getRotation"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Container.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Container.js
+ var Container = class extends Node$1 {
+ 	constructor() {
+ 		super(...arguments);
+@@ -28705,7 +28717,7 @@ Factory.addGetterSetter(Container, "clipWidth", void 0, getNumberValidator());
+ Factory.addGetterSetter(Container, "clipHeight", void 0, getNumberValidator());
+ Factory.addGetterSetter(Container, "clipFunc");
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/PointerEvents.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/PointerEvents.js
+ var Captures = /* @__PURE__ */ new Map();
+ var SUPPORT_POINTER_EVENTS = Konva$2._global["PointerEvent"] !== void 0;
+ function getCapturedShape(pointerId) {
+@@ -28735,7 +28747,7 @@ function releaseCapture(pointerId, target) {
+ 	if (SUPPORT_POINTER_EVENTS) shape._fire("lostpointercapture", createEvent(new PointerEvent("lostpointercapture")));
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Stage.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Stage.js
+ var STAGE = "Stage";
+ var STRING = "string";
+ var PX = "px";
+@@ -29360,7 +29372,7 @@ if (Konva$2.isBrowser) document.addEventListener("visibilitychange", () => {
+ 	});
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Shape.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Shape.js
+ var HAS_SHADOW = "hasShadow";
+ var SHADOW_RGBA = "shadowRGBA";
+ var patternImage = "patternImage";
+@@ -29802,7 +29814,7 @@ Factory.backCompat(Shape, {
+ 	setDrawHitFunc: "setHitFunc"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Layer.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Layer.js
+ var BEFORE_DRAW = "beforeDraw";
+ var DRAW = "draw";
+ var INTERSECTION_OFFSETS = [
+@@ -30052,7 +30064,7 @@ Factory.addGetterSetter(Layer, "imageSmoothingEnabled", true);
+ Factory.addGetterSetter(Layer, "clearBeforeDraw", true);
+ Factory.addGetterSetter(Layer, "hitGraphEnabled", true, getBooleanValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/FastLayer.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/FastLayer.js
+ var FastLayer = class extends Layer {
+ 	constructor(attrs) {
+ 		super(attrs);
+@@ -30063,7 +30075,7 @@ var FastLayer = class extends Layer {
+ FastLayer.prototype.nodeType = "FastLayer";
+ _registerNode(FastLayer);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Group.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Group.js
+ var Group = class extends Container {
+ 	_validateAdd(child) {
+ 		const type = child.getType();
+@@ -30073,7 +30085,7 @@ var Group = class extends Container {
+ Group.prototype.nodeType = "Group";
+ _registerNode(Group);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Animation.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Animation.js
+ var now = (function() {
+ 	if (glob.performance && glob.performance.now) return function() {
+ 		return glob.performance.now();
+@@ -30187,7 +30199,7 @@ Animation.animations = [];
+ Animation.animIdCounter = 0;
+ Animation.animRunning = false;
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Tween.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Tween.js
+ var blacklist = {
+ 	node: 1,
+ 	duration: 1,
+@@ -30551,7 +30563,7 @@ var Easings = {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/_CoreInternals.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/_CoreInternals.js
+ var Konva$1 = Util._assign(Konva$2, {
+ 	Util,
+ 	Transform,
+@@ -30572,7 +30584,7 @@ var Konva$1 = Util._assign(Konva$2, {
+ 	Canvas
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Arc.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Arc.js
+ var Arc = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const angle = Konva$2.getAngle(this.angle()), clockwise = this.clockwise();
+@@ -30629,7 +30641,7 @@ Factory.addGetterSetter(Arc, "outerRadius", 0, getNumberValidator());
+ Factory.addGetterSetter(Arc, "angle", 0, getNumberValidator());
+ Factory.addGetterSetter(Arc, "clockwise", false, getBooleanValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Line.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Line.js
+ function getControlPoints(x0, y0, x1, y1, x2, y2, t) {
+ 	const d01 = Math.sqrt(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2)), d12 = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)), fa = t * d01 / (d01 + d12), fb = t * d12 / (d01 + d12);
+ 	return [
+@@ -30797,7 +30809,7 @@ Factory.addGetterSetter(Line, "bezier", false);
+ Factory.addGetterSetter(Line, "tension", 0, getNumberValidator());
+ Factory.addGetterSetter(Line, "points", [], getNumberArrayValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/BezierFunctions.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/BezierFunctions.js
+ var tValues = [
+ 	[],
+ 	[],
+@@ -31582,7 +31594,7 @@ var t2length = (length, totalLength, func) => {
+ 	return t;
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Path.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Path.js
+ var Path = class Path extends Shape {
+ 	constructor(config) {
+ 		super(config);
+@@ -31633,6 +31645,7 @@ var Path = class Path extends Shape {
+ 				case "z":
+ 					isClosed = true;
+ 					context.closePath();
++					break;
+ 			}
+ 		}
+ 		if (!isClosed && !this.hasFill()) context.strokeShape(this);
+@@ -32102,6 +32115,7 @@ var Path = class Path extends Shape {
+ 						cpy += p.shift();
+ 						cmd = "A";
+ 						points = this.convertEndpointToCenterParameterization(x1, y1, cpx, cpy, fa, fs, rx, ry, psi);
++						break;
+ 				}
+ 				ca.push({
+ 					command: cmd || c,
+@@ -32221,7 +32235,7 @@ Path.prototype._attrsAffectingSize = ["data"];
+ _registerNode(Path);
+ Factory.addGetterSetter(Path, "data");
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Arrow.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Arrow.js
+ var Arrow = class extends Line {
+ 	_sceneFunc(ctx) {
+ 		super._sceneFunc(ctx);
+@@ -32311,7 +32325,7 @@ Factory.addGetterSetter(Arrow, "pointerWidth", 10, getNumberValidator());
+ Factory.addGetterSetter(Arrow, "pointerAtBeginning", false);
+ Factory.addGetterSetter(Arrow, "pointerAtEnding", true);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Circle.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Circle.js
+ var Circle = class extends Shape {
+ 	_sceneFunc(context) {
+ 		context.beginPath();
+@@ -32338,7 +32352,7 @@ Circle.prototype._attrsAffectingSize = ["radius"];
+ _registerNode(Circle);
+ Factory.addGetterSetter(Circle, "radius", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Ellipse.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Ellipse.js
+ var Ellipse = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const rx = this.radiusX(), ry = this.radiusY();
+@@ -32371,7 +32385,7 @@ Factory.addComponentsGetterSetter(Ellipse, "radius", ["x", "y"]);
+ Factory.addGetterSetter(Ellipse, "radiusX", 0, getNumberValidator());
+ Factory.addGetterSetter(Ellipse, "radiusY", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Image.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Image.js
+ var Image = class Image extends Shape {
+ 	constructor(attrs) {
+ 		super(attrs);
+@@ -32485,7 +32499,7 @@ Factory.addGetterSetter(Image, "cropY", 0, getNumberValidator());
+ Factory.addGetterSetter(Image, "cropWidth", 0, getNumberValidator());
+ Factory.addGetterSetter(Image, "cropHeight", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Label.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Label.js
+ var ATTR_CHANGE_LIST$2 = [
+ 	"fontFamily",
+ 	"fontSize",
+@@ -32559,6 +32573,7 @@ var Label = class extends Group {
+ 				case LEFT$1:
+ 					x = -1 * pointerWidth;
+ 					y = height / 2;
++					break;
+ 			}
+ 			tag.setAttrs({
+ 				x: -1 * x,
+@@ -32647,7 +32662,7 @@ Factory.addGetterSetter(Tag, "pointerWidth", 0, getNumberValidator());
+ Factory.addGetterSetter(Tag, "pointerHeight", 0, getNumberValidator());
+ Factory.addGetterSetter(Tag, "cornerRadius", 0, getNumberOrArrayOfNumbersValidator(4));
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Rect.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Rect.js
+ var Rect = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const cornerRadius = this.cornerRadius(), width = this.width(), height = this.height();
+@@ -32662,7 +32677,7 @@ Rect.prototype.className = "Rect";
+ _registerNode(Rect);
+ Factory.addGetterSetter(Rect, "cornerRadius", 0, getNumberOrArrayOfNumbersValidator(4));
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/RegularPolygon.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/RegularPolygon.js
+ var RegularPolygon = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const points = this._getPoints(), radius = this.radius(), sides = this.sides(), cornerRadius = this.cornerRadius();
+@@ -32724,7 +32739,7 @@ Factory.addGetterSetter(RegularPolygon, "radius", 0, getNumberValidator());
+ Factory.addGetterSetter(RegularPolygon, "sides", 0, getNumberValidator());
+ Factory.addGetterSetter(RegularPolygon, "cornerRadius", 0, getNumberOrArrayOfNumbersValidator(4));
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Ring.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Ring.js
+ var PIx2 = Math.PI * 2;
+ var Ring = class extends Shape {
+ 	_sceneFunc(context) {
+@@ -32755,7 +32770,7 @@ _registerNode(Ring);
+ Factory.addGetterSetter(Ring, "innerRadius", 0, getNumberValidator());
+ Factory.addGetterSetter(Ring, "outerRadius", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Sprite.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Sprite.js
+ var Sprite = class extends Shape {
+ 	constructor(config) {
+ 		super(config);
+@@ -32844,7 +32859,7 @@ Factory.backCompat(Sprite, {
+ 	setIndex: "setFrameIndex"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Star.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Star.js
+ var Star = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const innerRadius = this.innerRadius(), outerRadius = this.outerRadius(), numPoints = this.numPoints();
+@@ -32880,7 +32895,7 @@ Factory.addGetterSetter(Star, "numPoints", 5, getNumberValidator());
+ Factory.addGetterSetter(Star, "innerRadius", 0, getNumberValidator());
+ Factory.addGetterSetter(Star, "outerRadius", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Text.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Text.js
+ function stringToArray(string) {
+ 	return [...string].reduce((acc, char, index, array) => {
+ 		if (/\p{Emoji}/u.test(char)) {
+@@ -33282,7 +33297,7 @@ Factory.addGetterSetter(Text, "textDecoration", "");
+ Factory.addGetterSetter(Text, "underlineOffset", void 0, getNumberValidator());
+ Factory.addGetterSetter(Text, "charRenderFunc", void 0);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/TextPath.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/TextPath.js
+ var EMPTY_STRING = "";
+ var NORMAL = "normal";
+ function _fillFunc(context) {
+@@ -33301,7 +33316,7 @@ var TextPath = class extends Shape {
+ 			this._readDataAttribute();
+ 			this._setTextData();
+ 		});
+-		this.on("textChange.konva alignChange.konva letterSpacingChange.konva kerningFuncChange.konva fontSizeChange.konva fontFamilyChange.konva", this._setTextData);
++		this.on("textChange.konva alignChange.konva letterSpacingChange.konva kerningFuncChange.konva fontSizeChange.konva fontFamilyChange.konva directionChange.konva", this._setTextData);
+ 		this._setTextData();
+ 	}
+ 	_getTextPathLength() {
+@@ -33404,6 +33419,7 @@ var TextPath = class extends Shape {
+ 	}
+ 	_setTextData() {
+ 		const charArr = stringToArray(this.text());
++		if (this.direction() === "rtl") charArr.reverse();
+ 		const chars = [];
+ 		let width = 0;
+ 		for (let i = 0; i < charArr.length; i++) {
+@@ -33525,8 +33541,9 @@ Factory.addGetterSetter(TextPath, "fontVariant", NORMAL);
+ Factory.addGetterSetter(TextPath, "text", EMPTY_STRING);
+ Factory.addGetterSetter(TextPath, "textDecoration", "");
+ Factory.addGetterSetter(TextPath, "kerningFunc", void 0);
++Factory.addGetterSetter(TextPath, "direction", "inherit");
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Transformer.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Transformer.js
+ var EVENTS_NAME = "tr-konva";
+ var ATTR_CHANGE_LIST = [
+ 	"resizeEnabledChange",
+@@ -34453,7 +34470,7 @@ Factory.backCompat(Transformer, {
+ 	enabledHandlers: "enabledAnchors"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Wedge.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Wedge.js
+ var Wedge = class extends Shape {
+ 	_sceneFunc(context) {
+ 		context.beginPath();
+@@ -34488,7 +34505,7 @@ Factory.backCompat(Wedge, {
+ 	setAngleDeg: "setAngle"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Blur.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Blur.js
+ function BlurStack() {
+ 	this.r = 0;
+ 	this.g = 0;
+@@ -35170,7 +35187,7 @@ var Blur = function Blur(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "blurRadius", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Brighten.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Brighten.js
+ var Brighten = function(imageData) {
+ 	const brightness = this.brightness() * 255, data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35181,7 +35198,7 @@ var Brighten = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "brightness", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Brightness.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Brightness.js
+ var Brightness = function(imageData) {
+ 	const brightness = this.brightness(), data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35191,7 +35208,7 @@ var Brightness = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Contrast.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Contrast.js
+ var Contrast = function(imageData) {
+ 	const adjust = Math.pow((this.contrast() + 100) / 100, 2);
+ 	const data = imageData.data, nPixels = data.length;
+@@ -35225,7 +35242,7 @@ var Contrast = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "contrast", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Emboss.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Emboss.js
+ var Emboss = function(imageData) {
+ 	var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+ 	const data = imageData.data;
+@@ -35348,7 +35365,7 @@ Factory.addGetterSetter(Node$1, "embossWhiteLevel", .5, getNumberValidator(), Fa
+ Factory.addGetterSetter(Node$1, "embossDirection", "top-left", void 0, Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "embossBlend", false, void 0, Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Enhance.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Enhance.js
+ function remap(fromValue, fromMin, fromMax, toMin, toMax) {
+ 	const fromRange = fromMax - fromMin, toRange = toMax - toMin;
+ 	if (fromRange === 0) return toMin + toRange / 2;
+@@ -35412,7 +35429,7 @@ var Enhance = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "enhance", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Grayscale.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Grayscale.js
+ var Grayscale = function(imageData) {
+ 	const data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35423,7 +35440,7 @@ var Grayscale = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/HSL.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/HSL.js
+ Factory.addGetterSetter(Node$1, "hue", 0, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "saturation", 0, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "luminance", 0, getNumberValidator(), Factory.afterSetFilter);
+@@ -35446,7 +35463,7 @@ var HSL = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/HSV.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/HSV.js
+ var HSV = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length, v = Math.pow(2, this.value()), s = Math.pow(2, this.saturation()), h = Math.abs(this.hue() + 360) % 360;
+ 	const vsu = v * s * Math.cos(h * Math.PI / 180), vsw = v * s * Math.sin(h * Math.PI / 180);
+@@ -35468,7 +35485,7 @@ Factory.addGetterSetter(Node$1, "hue", 0, getNumberValidator(), Factory.afterSet
+ Factory.addGetterSetter(Node$1, "saturation", 0, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "value", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Invert.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Invert.js
+ var Invert = function(imageData) {
+ 	const data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35478,7 +35495,7 @@ var Invert = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Kaleidoscope.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Kaleidoscope.js
+ var ToPolar = function(src, dst, opt) {
+ 	const srcPixels = src.data, dstPixels = dst.data, xSize = src.width, ySize = src.height, xMid = opt.polarCenterX || xSize / 2, yMid = opt.polarCenterY || ySize / 2;
+ 	let rMax = Math.sqrt(xMid * xMid + yMid * yMid);
+@@ -35601,7 +35618,7 @@ var Kaleidoscope = function(imageData) {
+ Factory.addGetterSetter(Node$1, "kaleidoscopePower", 2, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "kaleidoscopeAngle", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Mask.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Mask.js
+ function pixelAt(idata, x, y) {
+ 	let idx = (y * idata.width + x) * 4;
+ 	const d = [];
+@@ -35641,14 +35658,11 @@ function backgroundMask(idata, threshold) {
+ 			rgbv_so
+ 		]);
+ 		const mask = [];
+-		for (let i = 0; i < idata.width * idata.height; i++) {
+-			const d = rgbDistance(mean, [
+-				idata.data[i * 4],
+-				idata.data[i * 4 + 1],
+-				idata.data[i * 4 + 2]
+-			]);
+-			mask[i] = d < thres ? 0 : 255;
+-		}
++		for (let i = 0; i < idata.width * idata.height; i++) mask[i] = rgbDistance(mean, [
++			idata.data[i * 4],
++			idata.data[i * 4 + 1],
++			idata.data[i * 4 + 2]
++		]) < thres ? 0 : 255;
+ 		return mask;
+ 	}
+ }
+@@ -35760,7 +35774,7 @@ var Mask = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "threshold", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Noise.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Noise.js
+ var Noise = function(imageData) {
+ 	const amount = this.noise() * 255, data = imageData.data, nPixels = data.length, half = amount / 2;
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35771,7 +35785,7 @@ var Noise = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "noise", .2, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Pixelate.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Pixelate.js
+ var Pixelate = function(imageData) {
+ 	let pixelSize = Math.ceil(this.pixelSize()), width = imageData.width, height = imageData.height, nBinsX = Math.ceil(width / pixelSize), nBinsY = Math.ceil(height / pixelSize), data = imageData.data;
+ 	if (pixelSize <= 0) {
+@@ -35819,14 +35833,14 @@ var Pixelate = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "pixelSize", 8, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Posterize.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Posterize.js
+ var Posterize = function(imageData) {
+ 	const levels = Math.round(this.levels() * 254) + 1, data = imageData.data, len = data.length, scale = 255 / levels;
+ 	for (let i = 0; i < len; i += 1) data[i] = Math.floor(data[i] / scale) * scale;
+ };
+ Factory.addGetterSetter(Node$1, "levels", .5, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/RGB.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/RGB.js
+ var RGB = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length, red = this.red(), green = this.green(), blue = this.blue();
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35851,7 +35865,7 @@ Factory.addGetterSetter(Node$1, "green", 0, function(val) {
+ });
+ Factory.addGetterSetter(Node$1, "blue", 0, RGBComponent, Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/RGBA.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/RGBA.js
+ var RGBA = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length, red = this.red(), green = this.green(), blue = this.blue(), alpha = this.alpha();
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35881,7 +35895,7 @@ Factory.addGetterSetter(Node$1, "alpha", 1, function(val) {
+ 	else return val;
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Sepia.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Sepia.js
+ var Sepia = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length;
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35894,7 +35908,7 @@ var Sepia = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Solarize.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Solarize.js
+ var Solarize = function(imageData) {
+ 	const threshold = 128;
+ 	const d = imageData.data;
+@@ -35909,14 +35923,14 @@ var Solarize = function(imageData) {
+ 	return imageData;
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Threshold.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Threshold.js
+ var Threshold = function(imageData) {
+ 	const level = this.threshold() * 255, data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 1) data[i] = data[i] < level ? 0 : 255;
+ };
+ Factory.addGetterSetter(Node$1, "threshold", .5, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/index.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/index.js
+ var lib_default = Konva$1.Util._assign(Konva$1, {
+ 	Arc,
+ 	Arrow,
+@@ -38649,6 +38663,8 @@ var _sfc_main$14 = {
+ 					event.preventDefault();
+ 					resetToApplied();
+ 					(0, vue.nextTick)(() => inputRef.value?.focus());
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const onCaretMousedown = (event) => {
+@@ -38705,6 +38721,8 @@ var _sfc_main$14 = {
+ 						shiftKey: event.shiftKey,
+ 						target: inputRef.value
+ 					});
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const handleDocumentPointerDown = (event) => {
+@@ -39445,8 +39463,11 @@ var _sfc_main$10 = {
+ 					closeDropdowns();
+ 					moveToPreviousButton(e);
+ 					break;
+-				case "Tab": if (e.shiftKey) moveToPreviousButtonGroup(e);
+-				else moveToNextButtonGroup(e);
++				case "Tab":
++					if (e.shiftKey) moveToPreviousButtonGroup(e);
++					else moveToNextButtonGroup(e);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const handleFocus = (e) => {
+@@ -40234,7 +40255,10 @@ var AlignmentButtons_default = /*#__PURE__*/ require__plugin_vue_export_helper._
+ 				case "ArrowRight":
+ 					moveToNextButton(index);
+ 					break;
+-				case "Enter": select(alignmentButtons[index].key);
++				case "Enter":
++					select(alignmentButtons[index].key);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		(0, vue.onMounted)(() => {
+@@ -40324,7 +40348,10 @@ var _sfc_main$7 = {
+ 				case "ArrowRight":
+ 					moveToNextButton(index);
+ 					break;
+-				case "Enter": select(props.buttons[index].key);
++				case "Enter":
++					select(props.buttons[index].key);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		(0, vue.onMounted)(() => {
+@@ -40459,7 +40486,10 @@ var _sfc_main$6 = {
+ 				case "ArrowUp":
+ 					moveToPreviousOption(index);
+ 					break;
+-				case "Enter": handleClick(props.options[index]);
++				case "Enter":
++					handleClick(props.options[index]);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		(0, vue.onMounted)(() => {
+@@ -40552,6 +40582,8 @@ var _sfc_main$5 = {
+ 				case "Enter":
+ 					event.preventDefault();
+ 					select(style);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const styleLabel = (style) => style?.name ?? style?.id ?? "";
+@@ -40853,7 +40885,10 @@ var _sfc_main$3 = {
+ 				case "Enter":
+ 					handleClick(option);
+ 					break;
+-				case "Escape": emit("clickoutside");
++				case "Escape":
++					emit("clickoutside");
++					break;
++				default: break;
+ 			}
+ 		};
+ 		return (_ctx, _cache) => {
+@@ -41138,10 +41173,13 @@ var TableGrid_default = /*#__PURE__*/ require__plugin_vue_export_helper._plugin_
+ 					selectGridItems(tableGridItems.value, cols, rows - 1);
+ 					break;
+ 				}
+-				case "Enter": handleClick({
+-					cols,
+-					rows
+-				});
++				case "Enter":
++					handleClick({
++						cols,
++						rows
++					});
++					break;
++				default: break;
+ 			}
+ 		};
+ 		(0, vue.onMounted)(() => {
+@@ -42092,9 +42130,8 @@ var makeDefaultItems = ({ superToolbar, toolbarIcons, toolbarTexts, toolbarFonts
+ 		}
+ 	];
+ 	function renderDocumentMode(renderDocumentButton) {
+-		const optionsAfterRole = getDocumentOptionsAfterRole(role, documentOptions);
+ 		return (0, vue.h)(DocumentMode_default, {
+-			options: optionsAfterRole,
++			options: getDocumentOptionsAfterRole(role, documentOptions),
+ 			onSelect: (item) => {
+ 				const selectedEditor = superToolbar.superdoc?.activeEditor ?? superToolbar.activeEditor;
+ 				closeDropdown(renderDocumentButton);
+diff --git a/node_modules/superdoc/dist/superdoc.es.js b/node_modules/superdoc/dist/superdoc.es.js
+index 9516125..2061764 100644
+--- a/node_modules/superdoc/dist/superdoc.es.js
++++ b/node_modules/superdoc/dist/superdoc.es.js
+@@ -311,7 +311,7 @@ var shuffleArray = (array) => {
+ 	return array;
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/@vue+devtools-shared@7.7.10/node_modules/@vue/devtools-shared/dist/index.js
++//#region ../../../node_modules/.pnpm/@vue+devtools-shared@7.7.10/node_modules/@vue/devtools-shared/dist/index.js
+ init_dist();
+ init_dist$1();
+ var __create$1 = Object.create;
+@@ -509,7 +509,7 @@ function basename(filename, ext) {
+ }
+ var deepClone = (0, import_rfdc.default)({ circles: true });
+ //#endregion
+-//#region ../../node_modules/.pnpm/perfect-debounce@1.0.0/node_modules/perfect-debounce/dist/index.mjs
++//#region ../../../node_modules/.pnpm/perfect-debounce@1.0.0/node_modules/perfect-debounce/dist/index.mjs
+ var DEBOUNCE_DEFAULTS = { trailing: true };
+ function debounce(fn, wait = 25, options = {}) {
+ 	options = {
+@@ -559,7 +559,7 @@ async function _applyPromised(fn, _this, args) {
+ 	return await fn.apply(_this, args);
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/hookable@5.5.3/node_modules/hookable/dist/index.mjs
++//#region ../../../node_modules/.pnpm/hookable@5.5.3/node_modules/hookable/dist/index.mjs
+ function flatHooks(configHooks, hooks = {}, parentName) {
+ 	for (const key in configHooks) {
+ 		const subHook = configHooks[key];
+@@ -715,7 +715,7 @@ function createHooks() {
+ 	return new Hookable();
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/@vue+devtools-kit@7.7.10/node_modules/@vue/devtools-kit/dist/index.js
++//#region ../../../node_modules/.pnpm/@vue+devtools-kit@7.7.10/node_modules/@vue/devtools-kit/dist/index.js
+ var __create = Object.create;
+ var __defProp = Object.defineProperty;
+ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+@@ -3751,7 +3751,9 @@ var getDeep = (object, path) => {
+ 				case "key":
+ 					object = keyOfRow;
+ 					break;
+-				case "value": object = object.get(keyOfRow);
++				case "value":
++					object = object.get(keyOfRow);
++					break;
+ 			}
+ 		} else object = object[key];
+ 	}
+@@ -3779,7 +3781,9 @@ var setDeep = (object, path, mapper) => {
+ 				case "key":
+ 					parent = keyOfRow;
+ 					break;
+-				case "value": parent = parent.get(keyOfRow);
++				case "value":
++					parent = parent.get(keyOfRow);
++					break;
+ 			}
+ 		}
+ 	}
+@@ -3804,7 +3808,9 @@ var setDeep = (object, path, mapper) => {
+ 				if (newKey !== keyToRow) parent.delete(keyToRow);
+ 				break;
+ 			}
+-			case "value": parent.set(keyToRow, mapper(parent.get(keyToRow)));
++			case "value":
++				parent.set(keyToRow, mapper(parent.get(keyToRow)));
++				break;
+ 		}
+ 	}
+ 	return object;
+@@ -4046,7 +4052,7 @@ init_esm_shims();
+ init_esm_shims();
+ init_esm_shims();
+ //#endregion
+-//#region ../../node_modules/.pnpm/pinia@3.0.4_typescript@5.9.3_vue@3.5.32_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs
++//#region ../../../node_modules/.pnpm/pinia@3.0.4_typescript@5.9.3_vue@3.5.38_typescript@5.9.3_/node_modules/pinia/dist/pinia.mjs
+ var import_jszip_min = /* @__PURE__ */ __toESM$2(require_jszip_min(), 1);
+ /*!
+ * pinia v3.0.4
+@@ -5595,7 +5601,9 @@ var syncCommentsToClients = (superdoc, event) => {
+ 		case "resolved":
+ 			updateYComment(yArray, superdoc.ydoc, event, user);
+ 			break;
+-		case "deleted": deleteYComment(yArray, superdoc.ydoc, event, user);
++		case "deleted":
++			deleteYComment(yArray, superdoc.ydoc, event, user);
++			break;
+ 	}
+ };
+ //#endregion
+@@ -12849,7 +12857,7 @@ var CommentDialog_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 			if (!shouldCollapseThread.value) return comments.value;
+ 			return [comments.value[0], childComments.value[childComments.value.length - 1]].filter(Boolean);
+ 		});
+-		const overflowMeasurementKey = computed(() => {
++		watch(computed(() => {
+ 			const comment = visibleComments.value[0];
+ 			if (!comment) return "";
+ 			return JSON.stringify({
+@@ -12862,8 +12870,7 @@ var CommentDialog_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 				trackedChangeDisplayType: comment.trackedChangeDisplayType,
+ 				trackedChangeDetailLines: comment.trackedChangeDetailLines
+ 			});
+-		});
+-		watch(overflowMeasurementKey, () => {
++		}), () => {
+ 			nextTick(checkOverflow);
+ 		});
+ 		const collapsedReplyCount = computed(() => {
+@@ -13064,8 +13071,9 @@ var CommentDialog_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 		const v2WriteCapability = computed(() => {
+ 			if (!v2CommentsAdapter.value) return null;
+ 			const documentMode = commentsStore.viewingVisibility.documentMode;
+-			const capability = v2CommentsAdapter.value.getCapabilityState?.() ?? null;
+-			if (documentMode === "viewing") return {
++			const command = isPendingNewComment.value ? "comments.createFromSelection" : null;
++			const capability = v2CommentsAdapter.value.getCapabilityState?.(command) ?? null;
++			if (documentMode === "viewing" && !isPendingNewComment.value) return {
+ 				...capability ?? {},
+ 				canWrite: false,
+ 				reason: "review-surface-read-only"
+@@ -13303,10 +13311,12 @@ var CommentDialog_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 						focusEditInput(comment.commentId);
+ 					});
+ 					break;
+-				case "delete": deleteComment({
+-					superdoc: proxy.$superdoc,
+-					commentId: comment.commentId
+-				});
++				case "delete":
++					deleteComment({
++						superdoc: proxy.$superdoc,
++						commentId: comment.commentId
++					});
++					break;
+ 			}
+ 		};
+ 		const handleCommentUpdate = async (comment) => {
+@@ -13617,7 +13627,7 @@ var CommentDialog_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 			], 64))], 14, _hoisted_1$26)), [[_directive_click_outside, handleClickOutside]]);
+ 		};
+ 	}
+-}, [["__scopeId", "data-v-50d8ea52"]]);
++}, [["__scopeId", "data-v-d84bca4c"]]);
+ //#endregion
+ //#region src/components/CommentsLayer/commentsList/ReviewDirectoryListItem.vue
+ var _hoisted_1$25 = [
+@@ -21514,13 +21524,13 @@ var SuperDoc_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 				clearV2SelectionToolbarState();
+ 				return;
+ 			}
+-			const result = handles?.editing?.selectionTargets?.applyDomSelection?.(selection);
++			const result = handles?.selection?.applyDomSelection?.(selection);
+ 			if (!result?.ok || result.mode !== "range") {
+ 				clearV2SelectionToolbarState();
+ 				return;
+ 			}
+ 			v2HasRangeSelection.value = true;
+-			v2SelectionSnapshot.value = handles?.editing?.selection?.getSnapshot?.() ?? null;
++			v2SelectionSnapshot.value = handles?.selection?.getSnapshot?.() ?? null;
+ 			scheduleV2SelectionToolbarStateSync();
+ 		};
+ 		const scheduleV2DomSelectionSync = () => {
+@@ -23095,7 +23105,7 @@ var SuperDoc_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 			], 38);
+ 		};
+ 	}
+-}, [["__scopeId", "data-v-536a5178"]]);
++}, [["__scopeId", "data-v-c254bb84"]]);
+ //#endregion
+ //#region src/core/create-app.js
+ var PINIA_DEVTOOLS_SETUP_EVENT = "devtools-plugin:setup";
+@@ -24826,7 +24836,7 @@ var Whiteboard = class extends EventEmitter$2 {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Global.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Global.js
+ init_dist$1();
+ var PI_OVER_180 = Math.PI / 180;
+ function detectBrowser() {
+@@ -24835,7 +24845,7 @@ function detectBrowser() {
+ var glob = typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : typeof WorkerGlobalScope !== "undefined" ? self : {};
+ var Konva$2 = {
+ 	_global: glob,
+-	version: "10.2.5",
++	version: "10.3.0",
+ 	isBrowser: detectBrowser(),
+ 	isUnminified: /param/.test(function(param) {}.toString()),
+ 	dblClickWindow: 400,
+@@ -24885,7 +24895,7 @@ var _registerNode = (NodeClass) => {
+ };
+ Konva$2._injectGlobal(Konva$2);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Util.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Util.js
+ var NODE_ERROR = `Konva.js unsupported environment.
+ 
+ Looks like you are trying to use Konva.js in Node.js environment. because "document" object is undefined.
+@@ -26305,7 +26315,7 @@ var Util = {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Context.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Context.js
+ function simplifyArray(arr) {
+ 	const retArr = [], len = arr.length, util = Util;
+ 	for (let n = 0; n < len; n++) {
+@@ -26772,7 +26782,7 @@ var HitContext = class extends Context {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Canvas.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Canvas.js
+ var _pixelRatio;
+ function getDevicePixelRatio() {
+ 	if (_pixelRatio) return _pixelRatio;
+@@ -26870,7 +26880,7 @@ var HitCanvas = class extends Canvas {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/DragAndDrop.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/DragAndDrop.js
+ var DD = {
+ 	get isDragging() {
+ 		let flag = false;
+@@ -26958,7 +26968,7 @@ if (Konva$2.isBrowser) {
+ 	window.addEventListener("touchcancel", DD._endDragAfter, false);
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Validators.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Validators.js
+ function _formatValue(val) {
+ 	if (Util._isString(val)) return "\"" + val + "\"";
+ 	if (Object.prototype.toString.call(val) === "[object Number]") return val;
+@@ -27029,7 +27039,7 @@ function getComponentValidator(components) {
+ 	};
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Factory.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Factory.js
+ var GET = "get";
+ var SET$1 = "set";
+ var Factory = {
+@@ -27129,7 +27139,7 @@ var Factory = {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Node.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Node.js
+ function parseCSSFilters(cssFilter) {
+ 	const filterRegex = /(\w+)\(([^)]+)\)/g;
+ 	let match;
+@@ -27173,7 +27183,9 @@ function parseCSSFilters(cssFilter) {
+ 				const KonvaFilters = Konva$2.Filters;
+ 				if (KonvaFilters && KonvaFilters.Invert) KonvaFilters.Invert.call(this, imageData);
+ 			};
+-			default: Util.warn(`CSS filter "${filterName}" is not supported in fallback mode. Consider using function filters for better compatibility.`);
++			default:
++				Util.warn(`CSS filter "${filterName}" is not supported in fallback mode. Consider using function filters for better compatibility.`);
++				break;
+ 		}
+ 	}
+ 	return () => {};
+@@ -28409,7 +28421,7 @@ Factory.backCompat(Node$1, {
+ 	getRotationDeg: "getRotation"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Container.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Container.js
+ var Container = class extends Node$1 {
+ 	constructor() {
+ 		super(...arguments);
+@@ -28665,7 +28677,7 @@ Factory.addGetterSetter(Container, "clipWidth", void 0, getNumberValidator());
+ Factory.addGetterSetter(Container, "clipHeight", void 0, getNumberValidator());
+ Factory.addGetterSetter(Container, "clipFunc");
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/PointerEvents.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/PointerEvents.js
+ var Captures = /* @__PURE__ */ new Map();
+ var SUPPORT_POINTER_EVENTS = Konva$2._global["PointerEvent"] !== void 0;
+ function getCapturedShape(pointerId) {
+@@ -28695,7 +28707,7 @@ function releaseCapture(pointerId, target) {
+ 	if (SUPPORT_POINTER_EVENTS) shape._fire("lostpointercapture", createEvent(new PointerEvent("lostpointercapture")));
+ }
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Stage.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Stage.js
+ var STAGE = "Stage";
+ var STRING = "string";
+ var PX = "px";
+@@ -29320,7 +29332,7 @@ if (Konva$2.isBrowser) document.addEventListener("visibilitychange", () => {
+ 	});
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Shape.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Shape.js
+ var HAS_SHADOW = "hasShadow";
+ var SHADOW_RGBA = "shadowRGBA";
+ var patternImage = "patternImage";
+@@ -29762,7 +29774,7 @@ Factory.backCompat(Shape, {
+ 	setDrawHitFunc: "setHitFunc"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Layer.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Layer.js
+ var BEFORE_DRAW = "beforeDraw";
+ var DRAW = "draw";
+ var INTERSECTION_OFFSETS = [
+@@ -30012,7 +30024,7 @@ Factory.addGetterSetter(Layer, "imageSmoothingEnabled", true);
+ Factory.addGetterSetter(Layer, "clearBeforeDraw", true);
+ Factory.addGetterSetter(Layer, "hitGraphEnabled", true, getBooleanValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/FastLayer.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/FastLayer.js
+ var FastLayer = class extends Layer {
+ 	constructor(attrs) {
+ 		super(attrs);
+@@ -30023,7 +30035,7 @@ var FastLayer = class extends Layer {
+ FastLayer.prototype.nodeType = "FastLayer";
+ _registerNode(FastLayer);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Group.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Group.js
+ var Group = class extends Container {
+ 	_validateAdd(child) {
+ 		const type = child.getType();
+@@ -30033,7 +30045,7 @@ var Group = class extends Container {
+ Group.prototype.nodeType = "Group";
+ _registerNode(Group);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Animation.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Animation.js
+ var now = (function() {
+ 	if (glob.performance && glob.performance.now) return function() {
+ 		return glob.performance.now();
+@@ -30147,7 +30159,7 @@ Animation.animations = [];
+ Animation.animIdCounter = 0;
+ Animation.animRunning = false;
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/Tween.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/Tween.js
+ var blacklist = {
+ 	node: 1,
+ 	duration: 1,
+@@ -30511,7 +30523,7 @@ var Easings = {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/_CoreInternals.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/_CoreInternals.js
+ var Konva$1 = Util._assign(Konva$2, {
+ 	Util,
+ 	Transform,
+@@ -30532,7 +30544,7 @@ var Konva$1 = Util._assign(Konva$2, {
+ 	Canvas
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Arc.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Arc.js
+ var Arc = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const angle = Konva$2.getAngle(this.angle()), clockwise = this.clockwise();
+@@ -30589,7 +30601,7 @@ Factory.addGetterSetter(Arc, "outerRadius", 0, getNumberValidator());
+ Factory.addGetterSetter(Arc, "angle", 0, getNumberValidator());
+ Factory.addGetterSetter(Arc, "clockwise", false, getBooleanValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Line.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Line.js
+ function getControlPoints(x0, y0, x1, y1, x2, y2, t) {
+ 	const d01 = Math.sqrt(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2)), d12 = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)), fa = t * d01 / (d01 + d12), fb = t * d12 / (d01 + d12);
+ 	return [
+@@ -30757,7 +30769,7 @@ Factory.addGetterSetter(Line, "bezier", false);
+ Factory.addGetterSetter(Line, "tension", 0, getNumberValidator());
+ Factory.addGetterSetter(Line, "points", [], getNumberArrayValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/BezierFunctions.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/BezierFunctions.js
+ var tValues = [
+ 	[],
+ 	[],
+@@ -31542,7 +31554,7 @@ var t2length = (length, totalLength, func) => {
+ 	return t;
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Path.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Path.js
+ var Path = class Path extends Shape {
+ 	constructor(config) {
+ 		super(config);
+@@ -31593,6 +31605,7 @@ var Path = class Path extends Shape {
+ 				case "z":
+ 					isClosed = true;
+ 					context.closePath();
++					break;
+ 			}
+ 		}
+ 		if (!isClosed && !this.hasFill()) context.strokeShape(this);
+@@ -32062,6 +32075,7 @@ var Path = class Path extends Shape {
+ 						cpy += p.shift();
+ 						cmd = "A";
+ 						points = this.convertEndpointToCenterParameterization(x1, y1, cpx, cpy, fa, fs, rx, ry, psi);
++						break;
+ 				}
+ 				ca.push({
+ 					command: cmd || c,
+@@ -32181,7 +32195,7 @@ Path.prototype._attrsAffectingSize = ["data"];
+ _registerNode(Path);
+ Factory.addGetterSetter(Path, "data");
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Arrow.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Arrow.js
+ var Arrow = class extends Line {
+ 	_sceneFunc(ctx) {
+ 		super._sceneFunc(ctx);
+@@ -32271,7 +32285,7 @@ Factory.addGetterSetter(Arrow, "pointerWidth", 10, getNumberValidator());
+ Factory.addGetterSetter(Arrow, "pointerAtBeginning", false);
+ Factory.addGetterSetter(Arrow, "pointerAtEnding", true);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Circle.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Circle.js
+ var Circle = class extends Shape {
+ 	_sceneFunc(context) {
+ 		context.beginPath();
+@@ -32298,7 +32312,7 @@ Circle.prototype._attrsAffectingSize = ["radius"];
+ _registerNode(Circle);
+ Factory.addGetterSetter(Circle, "radius", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Ellipse.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Ellipse.js
+ var Ellipse = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const rx = this.radiusX(), ry = this.radiusY();
+@@ -32331,7 +32345,7 @@ Factory.addComponentsGetterSetter(Ellipse, "radius", ["x", "y"]);
+ Factory.addGetterSetter(Ellipse, "radiusX", 0, getNumberValidator());
+ Factory.addGetterSetter(Ellipse, "radiusY", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Image.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Image.js
+ var Image = class Image extends Shape {
+ 	constructor(attrs) {
+ 		super(attrs);
+@@ -32445,7 +32459,7 @@ Factory.addGetterSetter(Image, "cropY", 0, getNumberValidator());
+ Factory.addGetterSetter(Image, "cropWidth", 0, getNumberValidator());
+ Factory.addGetterSetter(Image, "cropHeight", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Label.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Label.js
+ var ATTR_CHANGE_LIST$2 = [
+ 	"fontFamily",
+ 	"fontSize",
+@@ -32519,6 +32533,7 @@ var Label = class extends Group {
+ 				case LEFT$1:
+ 					x = -1 * pointerWidth;
+ 					y = height / 2;
++					break;
+ 			}
+ 			tag.setAttrs({
+ 				x: -1 * x,
+@@ -32607,7 +32622,7 @@ Factory.addGetterSetter(Tag, "pointerWidth", 0, getNumberValidator());
+ Factory.addGetterSetter(Tag, "pointerHeight", 0, getNumberValidator());
+ Factory.addGetterSetter(Tag, "cornerRadius", 0, getNumberOrArrayOfNumbersValidator(4));
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Rect.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Rect.js
+ var Rect = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const cornerRadius = this.cornerRadius(), width = this.width(), height = this.height();
+@@ -32622,7 +32637,7 @@ Rect.prototype.className = "Rect";
+ _registerNode(Rect);
+ Factory.addGetterSetter(Rect, "cornerRadius", 0, getNumberOrArrayOfNumbersValidator(4));
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/RegularPolygon.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/RegularPolygon.js
+ var RegularPolygon = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const points = this._getPoints(), radius = this.radius(), sides = this.sides(), cornerRadius = this.cornerRadius();
+@@ -32684,7 +32699,7 @@ Factory.addGetterSetter(RegularPolygon, "radius", 0, getNumberValidator());
+ Factory.addGetterSetter(RegularPolygon, "sides", 0, getNumberValidator());
+ Factory.addGetterSetter(RegularPolygon, "cornerRadius", 0, getNumberOrArrayOfNumbersValidator(4));
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Ring.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Ring.js
+ var PIx2 = Math.PI * 2;
+ var Ring = class extends Shape {
+ 	_sceneFunc(context) {
+@@ -32715,7 +32730,7 @@ _registerNode(Ring);
+ Factory.addGetterSetter(Ring, "innerRadius", 0, getNumberValidator());
+ Factory.addGetterSetter(Ring, "outerRadius", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Sprite.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Sprite.js
+ var Sprite = class extends Shape {
+ 	constructor(config) {
+ 		super(config);
+@@ -32804,7 +32819,7 @@ Factory.backCompat(Sprite, {
+ 	setIndex: "setFrameIndex"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Star.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Star.js
+ var Star = class extends Shape {
+ 	_sceneFunc(context) {
+ 		const innerRadius = this.innerRadius(), outerRadius = this.outerRadius(), numPoints = this.numPoints();
+@@ -32840,7 +32855,7 @@ Factory.addGetterSetter(Star, "numPoints", 5, getNumberValidator());
+ Factory.addGetterSetter(Star, "innerRadius", 0, getNumberValidator());
+ Factory.addGetterSetter(Star, "outerRadius", 0, getNumberValidator());
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Text.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Text.js
+ function stringToArray(string) {
+ 	return [...string].reduce((acc, char, index, array) => {
+ 		if (/\p{Emoji}/u.test(char)) {
+@@ -33242,7 +33257,7 @@ Factory.addGetterSetter(Text, "textDecoration", "");
+ Factory.addGetterSetter(Text, "underlineOffset", void 0, getNumberValidator());
+ Factory.addGetterSetter(Text, "charRenderFunc", void 0);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/TextPath.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/TextPath.js
+ var EMPTY_STRING = "";
+ var NORMAL = "normal";
+ function _fillFunc(context) {
+@@ -33261,7 +33276,7 @@ var TextPath = class extends Shape {
+ 			this._readDataAttribute();
+ 			this._setTextData();
+ 		});
+-		this.on("textChange.konva alignChange.konva letterSpacingChange.konva kerningFuncChange.konva fontSizeChange.konva fontFamilyChange.konva", this._setTextData);
++		this.on("textChange.konva alignChange.konva letterSpacingChange.konva kerningFuncChange.konva fontSizeChange.konva fontFamilyChange.konva directionChange.konva", this._setTextData);
+ 		this._setTextData();
+ 	}
+ 	_getTextPathLength() {
+@@ -33364,6 +33379,7 @@ var TextPath = class extends Shape {
+ 	}
+ 	_setTextData() {
+ 		const charArr = stringToArray(this.text());
++		if (this.direction() === "rtl") charArr.reverse();
+ 		const chars = [];
+ 		let width = 0;
+ 		for (let i = 0; i < charArr.length; i++) {
+@@ -33485,8 +33501,9 @@ Factory.addGetterSetter(TextPath, "fontVariant", NORMAL);
+ Factory.addGetterSetter(TextPath, "text", EMPTY_STRING);
+ Factory.addGetterSetter(TextPath, "textDecoration", "");
+ Factory.addGetterSetter(TextPath, "kerningFunc", void 0);
++Factory.addGetterSetter(TextPath, "direction", "inherit");
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Transformer.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Transformer.js
+ var EVENTS_NAME = "tr-konva";
+ var ATTR_CHANGE_LIST = [
+ 	"resizeEnabledChange",
+@@ -34413,7 +34430,7 @@ Factory.backCompat(Transformer, {
+ 	enabledHandlers: "enabledAnchors"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/shapes/Wedge.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/shapes/Wedge.js
+ var Wedge = class extends Shape {
+ 	_sceneFunc(context) {
+ 		context.beginPath();
+@@ -34448,7 +34465,7 @@ Factory.backCompat(Wedge, {
+ 	setAngleDeg: "setAngle"
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Blur.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Blur.js
+ function BlurStack() {
+ 	this.r = 0;
+ 	this.g = 0;
+@@ -35130,7 +35147,7 @@ var Blur = function Blur(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "blurRadius", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Brighten.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Brighten.js
+ var Brighten = function(imageData) {
+ 	const brightness = this.brightness() * 255, data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35141,7 +35158,7 @@ var Brighten = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "brightness", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Brightness.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Brightness.js
+ var Brightness = function(imageData) {
+ 	const brightness = this.brightness(), data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35151,7 +35168,7 @@ var Brightness = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Contrast.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Contrast.js
+ var Contrast = function(imageData) {
+ 	const adjust = Math.pow((this.contrast() + 100) / 100, 2);
+ 	const data = imageData.data, nPixels = data.length;
+@@ -35185,7 +35202,7 @@ var Contrast = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "contrast", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Emboss.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Emboss.js
+ var Emboss = function(imageData) {
+ 	var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+ 	const data = imageData.data;
+@@ -35308,7 +35325,7 @@ Factory.addGetterSetter(Node$1, "embossWhiteLevel", .5, getNumberValidator(), Fa
+ Factory.addGetterSetter(Node$1, "embossDirection", "top-left", void 0, Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "embossBlend", false, void 0, Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Enhance.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Enhance.js
+ function remap(fromValue, fromMin, fromMax, toMin, toMax) {
+ 	const fromRange = fromMax - fromMin, toRange = toMax - toMin;
+ 	if (fromRange === 0) return toMin + toRange / 2;
+@@ -35372,7 +35389,7 @@ var Enhance = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "enhance", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Grayscale.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Grayscale.js
+ var Grayscale = function(imageData) {
+ 	const data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35383,7 +35400,7 @@ var Grayscale = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/HSL.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/HSL.js
+ Factory.addGetterSetter(Node$1, "hue", 0, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "saturation", 0, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "luminance", 0, getNumberValidator(), Factory.afterSetFilter);
+@@ -35406,7 +35423,7 @@ var HSL = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/HSV.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/HSV.js
+ var HSV = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length, v = Math.pow(2, this.value()), s = Math.pow(2, this.saturation()), h = Math.abs(this.hue() + 360) % 360;
+ 	const vsu = v * s * Math.cos(h * Math.PI / 180), vsw = v * s * Math.sin(h * Math.PI / 180);
+@@ -35428,7 +35445,7 @@ Factory.addGetterSetter(Node$1, "hue", 0, getNumberValidator(), Factory.afterSet
+ Factory.addGetterSetter(Node$1, "saturation", 0, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "value", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Invert.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Invert.js
+ var Invert = function(imageData) {
+ 	const data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 4) {
+@@ -35438,7 +35455,7 @@ var Invert = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Kaleidoscope.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Kaleidoscope.js
+ var ToPolar = function(src, dst, opt) {
+ 	const srcPixels = src.data, dstPixels = dst.data, xSize = src.width, ySize = src.height, xMid = opt.polarCenterX || xSize / 2, yMid = opt.polarCenterY || ySize / 2;
+ 	let rMax = Math.sqrt(xMid * xMid + yMid * yMid);
+@@ -35561,7 +35578,7 @@ var Kaleidoscope = function(imageData) {
+ Factory.addGetterSetter(Node$1, "kaleidoscopePower", 2, getNumberValidator(), Factory.afterSetFilter);
+ Factory.addGetterSetter(Node$1, "kaleidoscopeAngle", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Mask.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Mask.js
+ function pixelAt(idata, x, y) {
+ 	let idx = (y * idata.width + x) * 4;
+ 	const d = [];
+@@ -35601,14 +35618,11 @@ function backgroundMask(idata, threshold) {
+ 			rgbv_so
+ 		]);
+ 		const mask = [];
+-		for (let i = 0; i < idata.width * idata.height; i++) {
+-			const d = rgbDistance(mean, [
+-				idata.data[i * 4],
+-				idata.data[i * 4 + 1],
+-				idata.data[i * 4 + 2]
+-			]);
+-			mask[i] = d < thres ? 0 : 255;
+-		}
++		for (let i = 0; i < idata.width * idata.height; i++) mask[i] = rgbDistance(mean, [
++			idata.data[i * 4],
++			idata.data[i * 4 + 1],
++			idata.data[i * 4 + 2]
++		]) < thres ? 0 : 255;
+ 		return mask;
+ 	}
+ }
+@@ -35720,7 +35734,7 @@ var Mask = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "threshold", 0, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Noise.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Noise.js
+ var Noise = function(imageData) {
+ 	const amount = this.noise() * 255, data = imageData.data, nPixels = data.length, half = amount / 2;
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35731,7 +35745,7 @@ var Noise = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "noise", .2, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Pixelate.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Pixelate.js
+ var Pixelate = function(imageData) {
+ 	let pixelSize = Math.ceil(this.pixelSize()), width = imageData.width, height = imageData.height, nBinsX = Math.ceil(width / pixelSize), nBinsY = Math.ceil(height / pixelSize), data = imageData.data;
+ 	if (pixelSize <= 0) {
+@@ -35779,14 +35793,14 @@ var Pixelate = function(imageData) {
+ };
+ Factory.addGetterSetter(Node$1, "pixelSize", 8, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Posterize.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Posterize.js
+ var Posterize = function(imageData) {
+ 	const levels = Math.round(this.levels() * 254) + 1, data = imageData.data, len = data.length, scale = 255 / levels;
+ 	for (let i = 0; i < len; i += 1) data[i] = Math.floor(data[i] / scale) * scale;
+ };
+ Factory.addGetterSetter(Node$1, "levels", .5, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/RGB.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/RGB.js
+ var RGB = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length, red = this.red(), green = this.green(), blue = this.blue();
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35811,7 +35825,7 @@ Factory.addGetterSetter(Node$1, "green", 0, function(val) {
+ });
+ Factory.addGetterSetter(Node$1, "blue", 0, RGBComponent, Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/RGBA.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/RGBA.js
+ var RGBA = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length, red = this.red(), green = this.green(), blue = this.blue(), alpha = this.alpha();
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35841,7 +35855,7 @@ Factory.addGetterSetter(Node$1, "alpha", 1, function(val) {
+ 	else return val;
+ });
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Sepia.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Sepia.js
+ var Sepia = function(imageData) {
+ 	const data = imageData.data, nPixels = data.length;
+ 	for (let i = 0; i < nPixels; i += 4) {
+@@ -35854,7 +35868,7 @@ var Sepia = function(imageData) {
+ 	}
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Solarize.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Solarize.js
+ var Solarize = function(imageData) {
+ 	const threshold = 128;
+ 	const d = imageData.data;
+@@ -35869,14 +35883,14 @@ var Solarize = function(imageData) {
+ 	return imageData;
+ };
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/filters/Threshold.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/filters/Threshold.js
+ var Threshold = function(imageData) {
+ 	const level = this.threshold() * 255, data = imageData.data, len = data.length;
+ 	for (let i = 0; i < len; i += 1) data[i] = data[i] < level ? 0 : 255;
+ };
+ Factory.addGetterSetter(Node$1, "threshold", .5, getNumberValidator(), Factory.afterSetFilter);
+ //#endregion
+-//#region ../../node_modules/.pnpm/konva@10.2.5/node_modules/konva/lib/index.js
++//#region ../../../node_modules/.pnpm/konva@10.3.0/node_modules/konva/lib/index.js
+ var lib_default = Konva$1.Util._assign(Konva$1, {
+ 	Arc,
+ 	Arrow,
+@@ -38604,6 +38618,8 @@ var ToolbarComboBox_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 					event.preventDefault();
+ 					resetToApplied();
+ 					nextTick(() => inputRef.value?.focus());
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const onCaretMousedown = (event) => {
+@@ -38660,6 +38676,8 @@ var ToolbarComboBox_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 						shiftKey: event.shiftKey,
+ 						target: inputRef.value
+ 					});
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const handleDocumentPointerDown = (event) => {
+@@ -39398,8 +39416,11 @@ var ButtonGroup_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 					closeDropdowns();
+ 					moveToPreviousButton(e);
+ 					break;
+-				case "Tab": if (e.shiftKey) moveToPreviousButtonGroup(e);
+-				else moveToNextButtonGroup(e);
++				case "Tab":
++					if (e.shiftKey) moveToPreviousButtonGroup(e);
++					else moveToNextButtonGroup(e);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const handleFocus = (e) => {
+@@ -40186,7 +40207,10 @@ var AlignmentButtons_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 				case "ArrowRight":
+ 					moveToNextButton(index);
+ 					break;
+-				case "Enter": select(alignmentButtons[index].key);
++				case "Enter":
++					select(alignmentButtons[index].key);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		onMounted(() => {
+@@ -40276,7 +40300,10 @@ var StyleButtonsList_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 				case "ArrowRight":
+ 					moveToNextButton(index);
+ 					break;
+-				case "Enter": select(props.buttons[index].key);
++				case "Enter":
++					select(props.buttons[index].key);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		onMounted(() => {
+@@ -40410,7 +40437,10 @@ var DocumentMode_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 				case "ArrowUp":
+ 					moveToPreviousOption(index);
+ 					break;
+-				case "Enter": handleClick(props.options[index]);
++				case "Enter":
++					handleClick(props.options[index]);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		onMounted(() => {
+@@ -40490,6 +40520,8 @@ var LinkedStyle_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 				case "Enter":
+ 					event.preventDefault();
+ 					select(style);
++					break;
++				default: break;
+ 			}
+ 		};
+ 		const styleLabel = (style) => style?.name ?? style?.id ?? "";
+@@ -40789,7 +40821,10 @@ var IconGridRow_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 				case "Enter":
+ 					handleClick(option);
+ 					break;
+-				case "Escape": emit("clickoutside");
++				case "Escape":
++					emit("clickoutside");
++					break;
++				default: break;
+ 			}
+ 		};
+ 		return (_ctx, _cache) => {
+@@ -41072,10 +41107,13 @@ var TableGrid_default = /*#__PURE__*/ _plugin_vue_export_helper_default({
+ 					selectGridItems(tableGridItems.value, cols, rows - 1);
+ 					break;
+ 				}
+-				case "Enter": handleClick({
+-					cols,
+-					rows
+-				});
++				case "Enter":
++					handleClick({
++						cols,
++						rows
++					});
++					break;
++				default: break;
+ 			}
+ 		};
+ 		onMounted(() => {
+@@ -42025,9 +42063,8 @@ var makeDefaultItems = ({ superToolbar, toolbarIcons, toolbarTexts, toolbarFonts
+ 		}
+ 	];
+ 	function renderDocumentMode(renderDocumentButton) {
+-		const optionsAfterRole = getDocumentOptionsAfterRole(role, documentOptions);
+ 		return h(DocumentMode_default, {
+-			options: optionsAfterRole,
++			options: getDocumentOptionsAfterRole(role, documentOptions),
+ 			onSelect: (item) => {
+ 				const selectedEditor = superToolbar.superdoc?.activeEditor ?? superToolbar.activeEditor;
+ 				closeDropdown(renderDocumentButton);
