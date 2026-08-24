@@ -61,16 +61,6 @@ function App() {
     }
   };
 
-  // Get document as HTML
-  const handleGetHTML = () => {
-    const instance = editorRef.current?.getInstance();
-    if (instance) {
-      const html = instance.getHTML();
-      console.log('Document HTML:', html);
-      alert(`Document has ${html.length} section(s). Check console for HTML.`);
-    }
-  };
-
   // Mode button component for cleaner JSX
   const ModeButton = ({
     targetMode,
@@ -124,9 +114,6 @@ function App() {
             <div className="actions">
               <button className="btn" onClick={handleExport}>
                 Export DOCX
-              </button>
-              <button className="btn" onClick={handleGetHTML}>
-                Get HTML
               </button>
             </div>
           )}
